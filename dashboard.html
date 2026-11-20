@@ -1,18 +1,22 @@
 <!doctype html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" id="theme-color" content="#021526">
   <meta name="description" content="แดชบอร์ดบัญชียา สต็อกรายล็อต และประวัติการจ่ายยา เชื่อมต่อฐานข้อมูล Supabase">
   <title>Dashboard คลังยา · ระบบร้านยาจำลอง</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+  <script src="./ocean.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
+  <canvas id="ocean-canvas" aria-hidden="true"></canvas>
+  <div class="tunnel-vignette" aria-hidden="true"></div>
+  <div class="page-layer">
   <div class="promo-banner" role="note">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
   <header class="topbar">
     <div class="shell topbar-inner">
@@ -26,6 +30,7 @@
         <a class="nav-pill" href="./admin.html">จัดการระบบ</a>
         <a class="nav-pill is-active" href="./dashboard.html" aria-current="page">Dashboard</a>
         <a class="nav-pill" href="./status.html">สถานะระบบ</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="สลับบรรยากาศทะเลน้ำลึกและทะเลตื้น">☀️ ทะเลตื้น</button>
         <span class="dataset-label" id="dataset-label">กำลังเชื่อมต่อ…</span>
       </div>
     </div>
@@ -151,5 +156,6 @@
     </div>
     <noscript><p>กรุณาเปิด JavaScript เพื่อเชื่อมต่อข้อมูลจาก Supabase</p></noscript>
   </main>
+  </div>
 </body>
 </html>

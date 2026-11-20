@@ -504,8 +504,8 @@ function mountCharts() {
   const categories = new Map();
   for (const { row } of model.catalog) categories.set(row.category, (categories.get(row.category) ?? 0) + 1);
   const ranked = [...categories].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'th'));
-  const palette = ['#0064e0', '#0a1317', '#1876f2', '#a121ce', '#31a24c', '#f2a918', '#e41e3f', '#0091ff',
-    '#385898', '#5d6c7b', '#0457cb', '#444950', '#2b8a3e', '#d97706', '#7c3aed', '#8595a4'];
+  const palette = ['#22d3ee', '#38bdf8', '#34d399', '#fbbf24', '#fb7185', '#a78bfa', '#f97316', '#0064e0',
+    '#2dd4bf', '#60a5fa', '#f472b6', '#facc15', '#4ade80', '#c084fc', '#818cf8', '#94a3b8'];
   const total = model.catalog.length;
   let end = 0;
   let hovered = '';
@@ -529,7 +529,8 @@ function mountCharts() {
     const spans = slices.flatMap((slice) => {
       const stop = slice.end - Math.min(.75, (slice.end - slice.start) * .12);
       const color = current && current !== slice ? slice.color + '60' : slice.color;
-      return [`${color} ${slice.start}deg ${stop}deg`, `#f1f4f7 ${stop}deg ${slice.end}deg`];
+      const gapColor = document.documentElement.getAttribute('data-theme') === 'light' ? '#eef8fc' : '#06213c';
+      return [`${color} ${slice.start}deg ${stop}deg`, `${gapColor} ${stop}deg ${slice.end}deg`];
     });
     ring.style.setProperty('--slices', `conic-gradient(${spans.join(',')})`);
   }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" id="theme-color" content="#021526">
 <meta name="description" content="หน้าขายยาและบันทึกการจ่ายยาสำหรับผู้ช่วยเภสัชกร ระบบร้านยาจำลอง">
 <title>หน้าขายยา · ระบบร้านยาจำลอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,540 +11,290 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: light;
-    --canvas: #ffffff;
-    --surface-soft: #f1f4f7;
-    --hover: #e9eef3;
-    --primary: #0064e0;
-    --primary-deep: #0457cb;
-    --primary-soft: rgba(0, 145, 255, 0.12);
-    --fb-blue: #1876f2;
-    --radio-selected: #0143b5;
-    --ink-button: #000000;
-    --ink-deep: #0a1317;
-    --ink: #1c1e21;
-    --charcoal: #444950;
-    --slate: #4b4c4f;
-    --steel: #5d6c7b;
-    --stone: #8595a4;
-    --hairline: #ced0d4;
-    --hairline-soft: #dee3e9;
-    --disabled: #bcc0c4;
-    --success: #31a24c;
-    --success-soft: rgba(49, 162, 76, 0.12);
-    --attention: #f2a918;
-    --warning: #f7b928;
-    --warning-soft: rgba(247, 185, 40, 0.18);
-    --critical: #e41e3f;
-    --critical-strong: #f0284a;
-    --critical-soft: rgba(228, 30, 63, 0.1);
-    --radius-lg: 8px;
-    --radius-xl: 16px;
-    --radius-xxl: 24px;
+    color-scheme: dark;
+    --bg-fallback: #021526;
+    --promo-bg: rgba(2, 16, 30, 0.86);
+    --promo-text: #d9f6ff;
+    --topbar-bg: rgba(3, 24, 44, 0.68);
+    --glass-bg: rgba(5, 28, 52, 0.72);
+    --glass-strong: rgba(4, 22, 42, 0.84);
+    --glass-hover: rgba(10, 48, 84, 0.82);
+    --glass-border: rgba(125, 226, 255, 0.24);
+    --glass-border-hover: rgba(125, 226, 255, 0.56);
+    --glass-shadow: 0 12px 34px rgba(0, 10, 24, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    --surface-soft: rgba(4, 24, 44, 0.62);
+    --input-bg: rgba(2, 18, 34, 0.84);
+    --text: #ffffff;
+    --ink-deep: #ffffff;
+    --muted: #b9e4f5;
+    --accent: #22d3ee;
+    --arrow-bg: linear-gradient(135deg, #0064e0, #22d3ee);
+    --green: #1ed760;
+    --green-hover: #2ee670;
+    --green-soft: rgba(30, 215, 96, 0.16);
+    --green-border: rgba(30, 215, 96, 0.45);
+    --orange: #ffa42b;
+    --orange-soft: rgba(255, 164, 43, 0.18);
+    --orange-border: rgba(255, 164, 43, 0.48);
+    --red: #f3727f;
+    --red-soft: rgba(243, 114, 127, 0.18);
+    --red-border: rgba(243, 114, 127, 0.48);
+    --radius-lg: 12px;
+    --radius-xl: 20px;
+    --radius-xxl: 26px;
     --pill: 100px;
     --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
   }
 
+  html[data-theme="light"] {
+    color-scheme: light;
+    --bg-fallback: #0b6e99;
+    --promo-bg: rgba(7, 48, 74, 0.88);
+    --promo-text: #ffffff;
+    --topbar-bg: rgba(255, 255, 255, 0.78);
+    --glass-bg: rgba(255, 255, 255, 0.84);
+    --glass-strong: rgba(255, 255, 255, 0.92);
+    --glass-hover: rgba(240, 251, 255, 0.96);
+    --glass-border: rgba(255, 255, 255, 0.82);
+    --glass-border-hover: #0064e0;
+    --glass-shadow: 0 12px 32px rgba(4, 52, 82, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    --surface-soft: rgba(235, 247, 252, 0.85);
+    --input-bg: rgba(255, 255, 255, 0.96);
+    --text: #07263a;
+    --ink-deep: #041d2e;
+    --muted: #295975;
+    --accent: #0064e0;
+    --arrow-bg: linear-gradient(135deg, #0064e0, #0ea5e9);
+    --green: #16a34a;
+    --green-hover: #15803d;
+    --green-soft: rgba(22, 163, 74, 0.14);
+    --green-border: rgba(22, 163, 74, 0.45);
+    --orange: #b45309;
+    --orange-soft: rgba(255, 164, 43, 0.24);
+    --orange-border: rgba(180, 83, 9, 0.45);
+    --red: #dc2626;
+    --red-soft: rgba(220, 38, 38, 0.12);
+    --red-border: rgba(220, 38, 38, 0.45);
+  }
+
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--canvas); color: var(--ink); }
+  html, body { margin: 0; padding: 0; background: var(--bg-fallback); color: var(--text); }
   body {
-    font-family: "Noto Sans Thai", "Montserrat", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-family: "Noto Sans Thai", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    letter-spacing: -0.16px;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
   }
   h1, h2, h3, p { margin: 0; }
-  h1, h2, h3 { font-weight: 500; line-height: 1.25; color: var(--ink-deep); }
-  a { color: var(--primary); text-underline-offset: .22em; }
+  h1, h2, h3 { font-weight: 600; line-height: 1.3; color: var(--ink-deep); }
+  a { color: var(--accent); text-underline-offset: .22em; }
   button, input, select { font: inherit; }
   [hidden] { display: none !important; }
 
-  /* ---------- แถบแจ้งเตือนด้านบน (promo-banner) ---------- */
+  #ocean-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+  .tunnel-vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      radial-gradient(ellipse 92% 78% at 50% 42%, transparent 45%, rgba(1, 14, 28, 0.42) 100%),
+      linear-gradient(180deg, rgba(160, 240, 255, 0.08) 0%, transparent 18%, transparent 82%, rgba(2, 18, 34, 0.48) 100%);
+  }
+  html[data-theme="light"] .tunnel-vignette {
+    background:
+      radial-gradient(ellipse 94% 80% at 50% 42%, transparent 50%, rgba(4, 64, 96, 0.28) 100%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 22%, transparent 84%, rgba(6, 66, 98, 0.34) 100%);
+  }
+  .page-layer { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; }
+
   .promo-banner {
-    background: var(--ink-deep);
-    color: var(--canvas);
+    background: var(--promo-bg);
+    color: var(--promo-text);
     padding: 10px 20px;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
-    letter-spacing: -0.14px;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* ---------- แถบนำทางร่วมของระบบ ---------- */
   .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: rgba(255, 255, 255, 0.96);
-    border-bottom: 1px solid var(--hairline-soft);
-    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 30;
+    background: var(--topbar-bg);
+    border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
   }
   .topbar-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    min-height: 64px;
-    padding: 10px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px 18px;
+    max-width: 1280px; margin: 0 auto; min-height: 64px; padding: 10px 24px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 18px;
   }
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink-deep);
-    font-weight: 700;
-    text-decoration: none;
-  }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-deep); font-weight: 700; text-decoration: none; }
   .brand-mark {
-    width: 28px;
-    height: 28px;
-    border-radius: 9999px;
-    background: var(--primary);
-    color: #ffffff;
-    display: inline-grid;
-    place-items: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex: 0 0 auto;
+    width: 30px; height: 30px; border-radius: 9999px; background: var(--arrow-bg); color: #ffffff;
+    display: inline-grid; place-items: center; font-size: 13px; font-weight: 700;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.4); flex: 0 0 auto;
   }
-  .nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
+  .nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .nav a, .theme-toggle {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 38px;
+    padding: 6px 14px; border-radius: var(--pill);
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: var(--text); text-decoration: none; font-size: 16px; font-weight: 600;
+    backdrop-filter: blur(10px); cursor: pointer;
   }
-  .nav a {
-    display: inline-flex;
-    align-items: center;
-    padding: 7px 14px;
-    border-radius: var(--pill);
-    background: var(--canvas);
-    border: 1px solid var(--hairline);
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.14px;
-  }
-  .nav a:hover { background: var(--surface-soft); }
+  .nav a:hover, .theme-toggle:hover { background: var(--glass-hover); border-color: var(--glass-border-hover); }
   .nav-current {
-    display: inline-flex;
-    align-items: center;
-    padding: 7px 16px;
-    border-radius: var(--pill);
-    background: var(--ink-deep);
-    color: var(--canvas);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: -0.14px;
+    display: inline-flex; align-items: center; min-height: 38px; padding: 6px 16px; border-radius: var(--pill);
+    background: var(--arrow-bg); color: #ffffff; font-size: 16px; font-weight: 700;
   }
 
-  /* ---------- โครงหน้าหลัก ---------- */
   main {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 28px 24px 64px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    max-width: 1280px; width: 100%; margin: 0 auto; padding: 24px 24px 64px;
+    display: flex; flex-direction: column; gap: 20px;
   }
 
   .page-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 14px 20px;
+    display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 14px 20px;
+    padding: 20px 24px; border-radius: 26px; background: var(--glass-bg);
+    border: 1px solid var(--glass-border); backdrop-filter: blur(18px); box-shadow: var(--glass-shadow);
   }
-  .page-head h1 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); font-weight: 500; }
-  .page-sub { color: var(--slate); font-size: 16px; margin-top: 4px; }
-  .head-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .page-head h1 { font-size: clamp(1.8rem, 3.6vw, 2.35rem); }
+  .page-sub { color: var(--muted); font-size: 16px; margin-top: 4px; }
+  .head-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
   .asof-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: var(--pill);
-    background: var(--surface-soft);
-    border: 1px solid var(--hairline-soft);
-    color: var(--steel);
-    font-size: 14px;
-    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: var(--pill);
+    background: var(--surface-soft); border: 1px solid var(--glass-border); color: var(--muted); font-size: 16px; font-weight: 600;
   }
-  .asof-pill::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--success);
-  }
+  .asof-pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
   .asof-pill strong { color: var(--ink-deep); font-family: var(--mono); }
 
-  /* ---------- แถบแจ้งเตือน ---------- */
   .banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 14px 20px;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--attention);
-    background: var(--warning-soft);
-    color: var(--ink-deep);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding: 14px 20px; border-radius: var(--radius-xl);
+    border: 1px solid var(--orange-border); background: var(--orange-soft);
+    backdrop-filter: blur(16px); color: var(--text);
   }
-  .banner.is-error {
-    border-color: var(--critical-strong);
-    background: #fff5f6;
-  }
-  .banner-title { font-weight: 700; color: var(--ink-deep); }
-  .banner.is-error .banner-title { color: var(--critical); }
-  .banner-text { color: var(--charcoal); }
+  .banner.is-error { border-color: var(--red-border); background: var(--red-soft); }
+  .banner-title { font-weight: 700; color: var(--orange); }
+  .banner.is-error .banner-title { color: var(--red); }
+  .banner-text { color: var(--text); }
 
-  /* ---------- กริดพื้นที่ทำงาน (PDP/Buy-Now Configurator Split) ---------- */
   .pos-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: 24px;
-    align-items: start;
+    display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: 22px; align-items: start;
   }
-
   .card {
-    background: var(--canvas);
-    border: 1px solid var(--hairline-soft);
-    border-radius: var(--radius-xxl);
-    padding: 24px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px); box-shadow: var(--glass-shadow);
+    border-radius: var(--radius-xxl); padding: 22px;
   }
-  .card.checkout-rail {
-    position: sticky;
-    top: 84px;
-    border-radius: var(--radius-xl);
-    box-shadow: rgba(20, 22, 26, 0.16) 0px 1px 6px 0px;
-  }
-  .card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px 14px;
-    margin-bottom: 16px;
-  }
-  .card-head h2 { font-size: 24px; font-weight: 500; }
-  .card-note { color: var(--steel); font-size: 14px; font-weight: 600; }
+  .card.checkout-rail { position: sticky; top: 82px; }
+  .card-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 14px; }
+  .card-head h2 { font-size: 22px; }
+  .card-note { color: var(--muted); font-size: 16px; }
 
-  /* ---------- ฟอร์มและปุ่มแคปซูลขนาดใหญ่ ---------- */
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
   .field:last-child { margin-bottom: 0; }
-  label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: -0.14px;
+  label { font-size: 16px; font-weight: 600; color: var(--muted); }
+  input[type="text"], input[type="number"], input[type="search"], select {
+    width: 100%; min-height: 50px; padding: 10px 14px; border-radius: var(--radius-lg);
+    background: var(--input-bg); color: var(--text); border: 1px solid var(--glass-border);
+    font-size: 16px; line-height: 1.5;
   }
-  input[type="text"],
-  input[type="number"],
-  input[type="search"],
-  select {
-    width: 100%;
-    min-height: 48px;
-    padding: 10px 14px;
-    border-radius: var(--radius-lg);
-    background: var(--canvas);
-    color: var(--ink);
-    border: 1px solid var(--hairline);
-    font-size: 16px;
-    line-height: 1.5;
-    transition: border-color .14s ease, background-color .14s ease;
-  }
-  input[type="search"] {
-    border-radius: var(--pill);
-    background: var(--surface-soft);
-    border-color: transparent;
-    padding-inline: 20px;
-  }
+  input[type="search"] { border-radius: var(--pill); padding-inline: 18px; }
   select { cursor: pointer; }
-  input::placeholder { color: var(--steel); }
-  input:focus, select:focus {
-    outline: none;
-    border: 2px solid var(--fb-blue);
-    background: var(--canvas);
-  }
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
+  input::placeholder { color: var(--muted); opacity: 0.72; }
+  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.22); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 48px;
-    padding: 12px 28px;
-    border-radius: var(--pill);
-    border: 2px solid transparent;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: -0.14px;
-    cursor: pointer;
-    white-space: nowrap;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 50px; padding: 10px 26px; border-radius: var(--pill);
+    border: 1px solid transparent; font-size: 16px; font-weight: 700;
+    cursor: pointer; white-space: nowrap; touch-action: manipulation;
     transition: background-color .14s ease, border-color .14s ease, transform .08s ease;
   }
-  .btn:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .btn:active:not(:disabled) { transform: scale(0.98); }
-  /* button-buy-cta: Cobalt Primary #0064e0 */
   .btn.primary {
-    width: 100%;
-    min-height: 54px;
-    background: var(--primary);
-    color: #ffffff;
-    border-color: var(--primary);
-    font-size: 17px;
+    width: 100%; min-height: 56px; font-size: 18px;
+    background: var(--green); color: #021526; border-color: var(--green);
+    box-shadow: 0 6px 20px rgba(30, 215, 96, 0.32);
   }
-  .btn.primary:hover:not(:disabled),
-  .btn.primary:active:not(:disabled) {
-    background: var(--primary-deep);
-    border-color: var(--primary-deep);
-  }
-  /* button-secondary: outlined pill */
+  html[data-theme="light"] .btn.primary { color: #ffffff; }
+  .btn.primary:hover:not(:disabled) { background: var(--green-hover); border-color: var(--green-hover); }
   .btn.secondary {
-    min-height: 42px;
-    padding: 8px 20px;
-    font-size: 14px;
-    background: transparent;
-    color: var(--ink-deep);
-    border-color: var(--ink-deep);
+    min-height: 44px; padding: 8px 18px; background: var(--surface-soft);
+    color: var(--text); border-color: var(--glass-border);
   }
-  .btn.secondary:hover:not(:disabled) { background: var(--surface-soft); }
-  .btn:disabled {
-    background: var(--disabled);
-    border-color: var(--disabled);
-    color: #ffffff;
-    cursor: not-allowed;
-  }
+  .btn.secondary:hover:not(:disabled) { background: var(--glass-hover); border-color: var(--glass-border-hover); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
-  /* ---------- รายการยาที่เลือกได้ (radio-option & radio-option-selected) ---------- */
-  .drug-list {
-    list-style: none;
-    margin: 14px 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 460px;
-    overflow-y: auto;
-  }
+  .drug-list { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; max-height: 460px; overflow-y: auto; }
   .drug-item-btn {
-    width: 100%;
-    min-height: 70px;
-    padding: 14px 18px;
-    border-radius: var(--radius-lg);
-    background: var(--canvas);
-    border: 1px solid rgba(10, 19, 23, 0.12);
-    color: var(--ink);
-    text-align: left;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    touch-action: manipulation;
-    transition: background-color .14s ease, border-color .14s ease;
+    width: 100%; min-height: 70px; padding: 13px 16px; border-radius: 16px;
+    background: var(--input-bg); border: 1px solid var(--glass-border); color: var(--text);
+    text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    touch-action: manipulation; transition: background-color .14s ease, border-color .14s ease;
   }
-  .drug-item-btn:hover { background: var(--surface-soft); }
-  .drug-item-btn[aria-pressed="true"] {
-    background: var(--primary-soft);
-    border: 2px solid var(--radio-selected);
-  }
-  .drug-item-btn:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
+  .drug-item-btn:hover { background: var(--glass-hover); border-color: var(--glass-border-hover); }
+  .drug-item-btn[aria-pressed="true"] { background: var(--green-soft); border: 2px solid var(--green); }
+  .drug-item-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .drug-info { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
   .drug-sku-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
-  .drug-sku {
-    font-family: var(--mono);
-    font-weight: 700;
-    color: var(--primary);
-    font-size: 15px;
-  }
+  .drug-sku { font-family: var(--mono); font-weight: 700; color: var(--accent); font-size: 16px; }
   .drug-name { font-weight: 700; color: var(--ink-deep); }
-  .drug-sub { color: var(--steel); font-size: 14px; }
-  .drug-stock {
-    flex: 0 0 auto;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-  }
-  .drug-qty {
-    font-family: var(--mono);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--ink-deep);
-    white-space: nowrap;
-  }
+  .drug-sub { color: var(--muted); font-size: 16px; }
+  .drug-stock { flex: 0 0 auto; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .drug-qty { font-family: var(--mono); font-size: 1.15rem; font-weight: 700; color: var(--ink-deep); white-space: nowrap; }
 
-  /* ---------- ป้ายต่ำกว่าจุดสั่งซื้อ (badge-promo-yellow / badge-attention) ---------- */
   .badge-reorder {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: var(--pill);
-    background: var(--warning);
-    color: var(--ink-deep);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px; border-radius: var(--pill);
+    background: var(--orange-soft); border: 1px solid var(--orange-border); color: var(--orange);
+    font-size: 16px; font-weight: 700; white-space: nowrap;
   }
-  .badge-reorder::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--ink-deep);
-  }
+  .badge-reorder::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
 
-  /* ---------- การ์ดสรุปยาที่เลือก ---------- */
   .selected-box {
-    padding: 16px 18px;
-    border-radius: var(--radius-xl);
-    background: var(--surface-soft);
-    border: 1px solid var(--hairline-soft);
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    padding: 15px 17px; border-radius: 16px; background: var(--surface-soft);
+    border: 1px solid var(--glass-border); margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;
   }
-  .selected-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .selected-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
   .selected-title { font-weight: 700; font-size: 18px; color: var(--ink-deep); }
-  .selected-usable {
-    font-family: var(--mono);
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--primary);
-  }
-  .selected-meta { color: var(--steel); font-size: 14px; }
+  .selected-usable { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; color: var(--green); }
+  .selected-meta { color: var(--muted); font-size: 16px; }
 
-  /* ---------- กล่องผลลัพธ์การจ่ายยา ---------- */
-  .result-box {
-    margin-top: 18px;
-    padding: 16px 18px;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--hairline-soft);
-  }
-  .result-box.is-success {
-    background: #f2fbf4;
-    border-color: var(--success);
-  }
-  .result-box.is-error {
-    background: #fff5f6;
-    border-color: var(--critical-strong);
-  }
-  .result-heading {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .result-box.is-success .result-heading { color: var(--success); }
-  .result-box.is-error .result-heading { color: var(--critical); }
-  .result-lines {
-    list-style: none;
-    margin: 8px 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .result-box { margin-top: 16px; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--glass-border); }
+  .result-box.is-success { background: var(--green-soft); border-color: var(--green-border); }
+  .result-box.is-error { background: var(--red-soft); border-color: var(--red-border); }
+  .result-heading { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .result-box.is-success .result-heading { color: var(--green); }
+  .result-box.is-error .result-heading { color: var(--red); }
+  .result-lines { list-style: none; margin: 8px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .result-lines li {
-    padding: 8px 12px;
-    border-radius: var(--radius-lg);
-    background: var(--canvas);
-    border: 1px solid var(--hairline-soft);
-    font-family: var(--mono);
-    font-size: 15px;
-    color: var(--ink-deep);
+    padding: 8px 12px; border-radius: 10px; background: var(--input-bg);
+    border: 1px solid var(--glass-border); font-family: var(--mono); font-size: 16px; color: var(--ink-deep);
   }
-  .result-balance {
-    margin-top: 8px;
-    font-weight: 700;
-    color: var(--ink-deep);
-  }
+  .result-balance { margin-top: 8px; font-weight: 700; color: var(--ink-deep); }
 
-  /* ---------- ตารางรายการจ่ายล่าสุด 8 แถว (tech-specs-table) ---------- */
-  .table-wrap {
-    overflow-x: auto;
-    border: 1px solid var(--hairline-soft);
-    border-radius: var(--radius-xl);
-    background: var(--canvas);
-  }
-  table {
-    width: 100%;
-    min-width: 720px;
-    border-collapse: collapse;
-    font-size: 15px;
-    text-align: left;
-  }
-  thead th {
-    background: var(--surface-soft);
-    color: var(--ink);
-    font-weight: 700;
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--hairline-soft);
-    white-space: nowrap;
-  }
-  tbody td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--hairline-soft);
-    vertical-align: top;
-    color: var(--charcoal);
-  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--input-bg); }
+  table { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 16px; text-align: left; }
+  thead th { background: var(--surface-soft); color: var(--ink-deep); font-weight: 700; padding: 12px 14px; border-bottom: 1px solid var(--glass-border); white-space: nowrap; }
+  tbody td { padding: 12px 14px; border-bottom: 1px solid var(--glass-border); vertical-align: top; color: var(--text); }
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: #f8fafc; }
-  td.code { font-family: var(--mono); font-weight: 700; color: var(--primary); white-space: nowrap; }
+  tbody tr:hover td { background: var(--glass-hover); }
+  td.code { font-family: var(--mono); font-weight: 700; color: var(--accent); white-space: nowrap; }
   th.num, td.num { text-align: right; font-family: var(--mono); white-space: nowrap; color: var(--ink-deep); }
   td.nowrap { white-space: nowrap; }
   .type-pill {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: var(--pill);
-    background: var(--surface-soft);
-    color: var(--ink);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
+    display: inline-block; padding: 2px 11px; border-radius: var(--pill);
+    border: 1px solid var(--glass-border); background: var(--surface-soft); color: var(--text);
+    font-size: 16px; font-weight: 700; white-space: nowrap;
   }
-  .type-pill.is-dispense { background: var(--success); color: #ffffff; }
-  .type-pill.is-return { background: var(--attention); color: #ffffff; }
-  .type-pill.is-void { background: var(--critical); color: #ffffff; }
+  .type-pill.is-dispense { border-color: var(--green-border); background: var(--green-soft); color: var(--green); }
+  .type-pill.is-return { border-color: var(--orange-border); background: var(--orange-soft); color: var(--orange); }
+  .type-pill.is-void { border-color: var(--red-border); background: var(--red-soft); color: var(--red); }
 
-  .empty-row td {
-    text-align: center;
-    color: var(--steel);
-    padding: 24px;
-  }
+  .empty-row td { text-align: center; color: var(--muted); padding: 24px; }
 
   @media (max-width: 960px) {
     .pos-grid { grid-template-columns: minmax(0, 1fr); }
@@ -552,13 +302,16 @@
   }
   @media (max-width: 560px) {
     .field-row { grid-template-columns: minmax(0, 1fr); }
-    main { padding: 18px 14px 48px; }
+    main { padding: 16px 14px 44px; }
     .topbar-inner { padding: 10px 14px; }
-    .card { padding: 18px; border-radius: 18px; }
+    .card, .page-head { padding: 16px; border-radius: 20px; }
   }
 </style>
 </head>
 <body>
+<canvas id="ocean-canvas" aria-hidden="true"></canvas>
+<div class="tunnel-vignette" aria-hidden="true"></div>
+<div class="page-layer">
 
 <div class="promo-banner" role="note">ข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
 
@@ -571,6 +324,7 @@
       <a href="./admin.html">จัดการระบบ</a>
       <a href="./dashboard.html">Dashboard</a>
       <a href="./status.html">สถานะระบบ</a>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="สลับบรรยากาศทะเลน้ำลึกและทะเลตื้น">☀️ ทะเลตื้น</button>
     </nav>
   </div>
 </header>
@@ -1230,6 +984,189 @@ $('refresh-btn').addEventListener('click', () => loadData(true));
 $('retry-btn').addEventListener('click', () => loadData(true));
 
 loadData(false);
+
+// ============================================================================
+// อนิเมชันอุโมงค์ใต้ทะเล SEA LIFE (ทำงานเฉพาะบน Canvas 2D — ไม่ใช้ library ภายนอก)
+// ============================================================================
+(function initOceanBg() {
+  const THEME_KEY = 'pharmacy_home_theme';
+  const toggleBtn = $('theme-toggle');
+  const themeMeta = $('theme-color');
+  let isLightOcean = false;
+
+  function applyTheme(mode) {
+    isLightOcean = mode === 'light';
+    document.documentElement.setAttribute('data-theme', isLightOcean ? 'light' : 'dark');
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-pressed', String(isLightOcean));
+      toggleBtn.textContent = isLightOcean ? '🌊 น้ำลึก' : '☀️ ทะเลตื้น';
+    }
+    if (themeMeta) themeMeta.setAttribute('content', isLightOcean ? '#0b6e99' : '#021526');
+  }
+  try { applyTheme(localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark'); } catch { applyTheme('dark'); }
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const next = isLightOcean ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch {}
+    });
+  }
+
+  const canvas = $('ocean-canvas');
+  const ctx = canvas && canvas.getContext('2d');
+  if (!ctx) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, dpr = 1, px = 0, py = 0, sx = 0, sy = 0;
+  const rand = (a, b) => a + Math.random() * (b - a);
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const rays = Array.from({ length: 7 }, (_, i) => ({ baseX: 0.08 + i * 0.14, width: rand(60, 130), speed: rand(0.24, 0.5), phase: rand(0, 6.28), alpha: rand(0.05, 0.11) }));
+  const bubbles = Array.from({ length: 28 }, () => ({ x: Math.random(), y: Math.random(), r: rand(2, 7), speed: rand(24, 62), wobble: rand(0.7, 1.8), phase: rand(0, 6.28) }));
+  const palettes = [
+    { b: '#ff8a3d', s: '#fff6e8', f: '#ffb870' }, { b: '#38bdf8', s: '#fde047', f: '#0284c7' },
+    { b: '#facc15', s: '#ffffff', f: '#f59e0b' }, { b: '#5eead4', s: '#cffafe', f: '#14b8a6' },
+    { b: '#fb7185', s: '#ffe4e6', f: '#f43f5e' },
+  ];
+  const fish = Array.from({ length: 22 }, (_, i) => {
+    const dir = i % 2 === 0 ? 1 : -1, depth = rand(0.45, 1.1);
+    return { x: Math.random() * 1400 - 150, yF: rand(0.14, 0.82), dir, speed: rand(24, 62) * depth, size: rand(10, 19) * depth, depth, phase: rand(0, 6.28), amp: rand(8, 22), p: palettes[i % palettes.length] };
+  });
+  const mantas = [
+    { x: -180, yF: 0.22, dir: 1, speed: 44, sc: 1.05, ph: 0.4 },
+    { x: 1180, yF: 0.36, dir: -1, speed: 32, sc: 0.72, ph: 2.3 },
+  ];
+  const shark = { x: 940, yF: 0.48, dir: -1, speed: 50, sc: 1.0, ph: 1.1 };
+  const turtle = { x: -120, yF: 0.65, dir: 1, speed: 28, sc: 0.9, ph: 0.8 };
+  const jellies = [
+    { xF: 0.1, yF: 0.3, sc: 0.9, ph: 0, h: '#67e8f9', g: 'rgba(103,232,249,0.42)' },
+    { xF: 0.88, yF: 0.26, sc: 1.08, ph: 2.1, h: '#c084fc', g: 'rgba(192,132,252,0.42)' },
+    { xF: 0.84, yF: 0.74, sc: 0.72, ph: 4.0, h: '#f472b6', g: 'rgba(244,114,182,0.38)' },
+  ];
+
+  let lastTs = 0;
+  function frame(ts) {
+    const t = ts * 0.001, dt = Math.min(0.05, lastTs ? (ts - lastTs) * 0.001 : 0.016);
+    lastTs = ts;
+    sx += (px - sx) * 0.06; sy += (py - sy) * 0.06;
+
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    if (isLightOcean) {
+      bg.addColorStop(0, '#1ab6d9'); bg.addColorStop(0.35, '#0e8cb5'); bg.addColorStop(0.72, '#085d87'); bg.addColorStop(1, '#043554');
+    } else {
+      bg.addColorStop(0, '#042c54'); bg.addColorStop(0.35, '#031f3d'); bg.addColorStop(0.72, '#02152b'); bg.addColorStop(1, '#010c1a');
+    }
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    for (const r of rays) {
+      const xTop = r.baseX * W + Math.sin(t * r.speed + r.phase) * 36 + sx * 16;
+      const g = ctx.createLinearGradient(xTop, 0, xTop + 70, H * 0.88);
+      const a = r.alpha * (isLightOcean ? 1.65 : 0.95) * (0.75 + 0.25 * Math.sin(t * 0.7 + r.phase));
+      g.addColorStop(0, 'rgba(195,248,255,' + a.toFixed(3) + ')'); g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g; ctx.beginPath();
+      ctx.moveTo(xTop - r.width * 0.45, -10); ctx.lineTo(xTop + r.width * 0.45, -10);
+      ctx.lineTo(xTop + r.width * 1.9, H * 0.95); ctx.lineTo(xTop - r.width, H * 0.95); ctx.closePath(); ctx.fill();
+    }
+
+    const cx = W * 0.5 + sx * 20, fy = H * 0.96 + sy * 10;
+    for (let i = 1; i <= 5; i++) {
+      const k = i / 5;
+      ctx.beginPath(); ctx.ellipse(cx, fy, W * (0.28 + k * 0.44), H * (0.34 + k * 0.54), 0, Math.PI, 0, false);
+      ctx.strokeStyle = isLightOcean ? 'rgba(255,255,255,' + (0.08 + k * 0.13).toFixed(3) + ')' : 'rgba(120,225,255,' + (0.05 + k * 0.1).toFixed(3) + ')';
+      ctx.lineWidth = 1.2 + k * 2; ctx.stroke();
+    }
+
+    if (!reduceMotion) {
+      for (const m of mantas) { m.x += m.dir * m.speed * dt; if (m.dir === 1 && m.x > W + 220) m.x = -220; if (m.dir === -1 && m.x < -220) m.x = W + 220; }
+      shark.x += shark.dir * shark.speed * dt; if (shark.x < -220) shark.x = W + 220;
+      turtle.x += turtle.dir * turtle.speed * dt; if (turtle.x > W + 160) turtle.x = -160;
+      for (const f of fish) { f.x += f.dir * f.speed * dt; if (f.dir === 1 && f.x > W + 90) f.x = -90; if (f.dir === -1 && f.x < -90) f.x = W + 90; }
+    }
+
+    for (const m of mantas) {
+      const y = m.yF * H + Math.sin(t * 0.7 + m.ph) * 24 + sy * 14, fl = Math.sin(t * 2.1 + m.ph) * 22;
+      ctx.save(); ctx.translate(m.x + sx * 14, y); ctx.scale(m.dir * m.sc, m.sc); ctx.globalAlpha = isLightOcean ? 0.52 : 0.66;
+      ctx.beginPath(); ctx.moveTo(-42, 0); ctx.quadraticCurveTo(-92, Math.sin(t * 2.6 + m.ph) * 14, -140, 0); ctx.strokeStyle = '#2f8cc4'; ctx.lineWidth = 3; ctx.stroke();
+      ctx.fillStyle = isLightOcean ? '#0369a1' : '#1d6fa3';
+      ctx.beginPath(); ctx.moveTo(56, 0); ctx.quadraticCurveTo(22, -16, -6, -54 + fl); ctx.quadraticCurveTo(-30, -24 + fl * 0.4, -46, 0);
+      ctx.quadraticCurveTo(-30, 24 - fl * 0.4, -6, 54 - fl); ctx.quadraticCurveTo(22, 16, 56, 0); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+
+    {
+      const y = shark.yF * H + Math.sin(t * 0.55 + shark.ph) * 20 + sy * 10, wg = Math.sin(t * 3.1 + shark.ph) * 14;
+      ctx.save(); ctx.translate(shark.x + sx * 10, y); ctx.scale(shark.dir * shark.sc, shark.sc); ctx.globalAlpha = isLightOcean ? 0.46 : 0.6;
+      ctx.fillStyle = isLightOcean ? '#1e6088' : '#2d729e';
+      ctx.beginPath(); ctx.moveTo(-4, -14); ctx.quadraticCurveTo(6, -42, 22, -13); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(86, 2); ctx.quadraticCurveTo(44, -22, -26, -11); ctx.quadraticCurveTo(-68, -4 + wg * 0.4, -96, -2 + wg);
+      ctx.lineTo(-124, -26 + wg); ctx.quadraticCurveTo(-112, -2 + wg, -118, 22 + wg); ctx.lineTo(-96, 6 + wg);
+      ctx.quadraticCurveTo(-64, 10 + wg * 0.4, -22, 13); ctx.quadraticCurveTo(40, 20, 86, 2); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+
+    {
+      const y = turtle.yF * H + Math.sin(t * 0.8 + turtle.ph) * 20 + sy * 16, rw = Math.sin(t * 2.2 + turtle.ph);
+      ctx.save(); ctx.translate(turtle.x + sx * 18, y); ctx.scale(turtle.dir * turtle.sc, turtle.sc); ctx.globalAlpha = 0.8;
+      ctx.fillStyle = '#2c7a6b'; ctx.save(); ctx.translate(10, 8); ctx.rotate(rw * 0.48); ctx.beginPath(); ctx.ellipse(-4, 18, 8, 22, 0.35, 0, 6.28); ctx.fill(); ctx.restore();
+      ctx.fillStyle = '#389683'; ctx.beginPath(); ctx.ellipse(36, 0, 12, 8.5, 0.1, 0, 6.28); ctx.fill();
+      ctx.fillStyle = '#1f6e5c'; ctx.beginPath(); ctx.ellipse(0, -2, 30, 17, 0, 0, 6.28); ctx.fill();
+      ctx.restore();
+    }
+
+    for (const j of jellies) {
+      const p = Math.sin(t * 2 + j.ph), x = j.xF * W + Math.sin(t * 0.45 + j.ph) * 26 + sx * 22, y = j.yF * H + Math.cos(t * 0.6 + j.ph) * 22 + sy * 16;
+      const bw = (24 + p * 3.5) * j.sc;
+      ctx.save(); ctx.translate(x, y);
+      const h = ctx.createRadialGradient(0, 0, 2, 0, 4, 44 * j.sc); h.addColorStop(0, j.g); h.addColorStop(1, 'transparent');
+      ctx.fillStyle = h; ctx.beginPath(); ctx.arc(0, 4, 44 * j.sc, 0, 6.28); ctx.fill();
+      ctx.strokeStyle = j.h; ctx.lineWidth = 1.6 * j.sc; ctx.globalAlpha = 0.68;
+      for (let k = -2; k <= 2; k++) {
+        ctx.beginPath(); const x0 = k * 7 * j.sc; ctx.moveTo(x0, 4 * j.sc);
+        ctx.bezierCurveTo(x0 + Math.sin(t * 2.5 + j.ph + k) * 9 * j.sc, 22 * j.sc, x0 - Math.cos(t * 2.1 + j.ph + k) * 11 * j.sc, 42 * j.sc, x0, 54 * j.sc);
+        ctx.stroke();
+      }
+      ctx.fillStyle = j.h; ctx.globalAlpha = 0.78;
+      ctx.beginPath(); ctx.arc(0, 4 * j.sc, bw, Math.PI, 0, false); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+
+    for (const f of fish) {
+      const y = f.yF * H + Math.sin(t * 1.6 + f.phase) * f.amp + sy * (14 * f.depth), wg = Math.sin(t * 7.5 + f.phase) * (f.size * 0.24);
+      ctx.save(); ctx.translate(f.x + sx * (18 * f.depth), y); ctx.scale(f.dir, 1); ctx.globalAlpha = Math.min(0.9, 0.42 + f.depth * 0.45);
+      ctx.fillStyle = f.p.f; ctx.beginPath(); ctx.moveTo(-f.size * 0.75, 0); ctx.lineTo(-f.size * 1.45, -f.size * 0.52 + wg); ctx.lineTo(-f.size * 1.45, f.size * 0.52 + wg); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = f.p.b; ctx.beginPath(); ctx.ellipse(0, 0, f.size, f.size * 0.54, 0, 0, 6.28); ctx.fill();
+      ctx.fillStyle = f.p.s; ctx.beginPath(); ctx.ellipse(-f.size * 0.1, 0, f.size * 0.17, f.size * 0.5, 0, 0, 6.28); ctx.fill();
+      ctx.restore();
+    }
+
+    for (let i = bubbles.length - 1; i >= 0; i--) {
+      const b = bubbles[i];
+      if (!reduceMotion) { b.y -= (b.speed * dt) / Math.max(H, 1); if (b.y < -0.05) { if (b.temp) { bubbles.splice(i, 1); continue; } b.y = 1.05; b.x = Math.random(); } }
+      const bx = b.x * W + Math.sin(t * b.wobble + b.phase) * 14 + sx * 20, by = b.y * H + sy * 10;
+      ctx.strokeStyle = isLightOcean ? 'rgba(255,255,255,0.52)' : 'rgba(175,242,255,0.42)';
+      ctx.fillStyle = isLightOcean ? 'rgba(255,255,255,0.14)' : 'rgba(140,232,255,0.1)';
+      ctx.lineWidth = 1.1; ctx.beginPath(); ctx.arc(bx, by, b.r, 0, 6.28); ctx.fill(); ctx.stroke();
+    }
+
+    if (!reduceMotion) requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', (e) => { if (!W || !H) return; px = (e.clientX / W - 0.5) * 2; py = (e.clientY / H - 0.5) * 2; }, { passive: true });
+  window.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('a, button, input, select, table')) return;
+    for (let i = 0; i < 7; i++) bubbles.push({ x: (e.clientX + rand(-22, 22)) / Math.max(W, 1), y: (e.clientY + rand(-12, 12)) / Math.max(H, 1), r: rand(2.5, 8), speed: rand(45, 90), wobble: rand(1, 2.2), phase: rand(0, 6.28), temp: true });
+    if (bubbles.length > 80) bubbles.splice(0, bubbles.length - 80);
+  }, { passive: true });
+
+  resize();
+  requestAnimationFrame(frame);
+})();
 </script>
+</div>
 </body>
 </html>
