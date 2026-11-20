@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="แดชบอร์ดบัญชียา สต็อกรายล็อต และประวัติการจ่ายยา เชื่อมต่อฐานข้อมูล Supabase">
+  <title>บัญชียาและสต็อก · Supabase</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>คลังข้อมูลยา</a>
+      <nav id="navigation" aria-label="ทางลัด" hidden>
+        <a href="#records">รายการ</a><a href="#charts">กราฟ</a><a href="#checks">ตรวจข้อมูล</a>
+      </nav>
+      <div class="topbar-meta">
+        <a class="status-link" href="./status.html">ตรวจสถานะระบบ</a>
+        <span class="dataset-label" id="dataset-label">กำลังเชื่อมต่อ…</span>
+      </div>
+    </div>
+  </header>
+  <main class="shell" id="top">
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="mono kicker">SUPABASE / LIVE DATABASE</div>
+        <h1>บัญชียาและสต็อก</h1>
+        <p class="hero-description">สำรวจทะเบียนยา ยอดคงเหลือรายล็อต และประวัติการจ่าย แบบเรียลไทม์จากฐานข้อมูล Supabase ผ่าน <code>/api/data</code></p>
+        <div class="db-panel" id="db-panel">
+          <div class="db-panel-copy">
+            <span class="db-dot" id="db-dot" aria-hidden="true"></span>
+            <div>
+              <strong id="db-title">เชื่อมต่อฐานข้อมูล Supabase</strong>
+              <p id="db-subtitle">อ่านข้อมูลจาก drugs · stock · dispense_log · v_drug_catalog</p>
+            </div>
+          </div>
+          <button type="button" class="button primary" id="reload-supabase">รีเฟรชข้อมูล</button>
+        </div>
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-copy">
+            <span class="drop-mark mono" aria-hidden="true">{ }</span>
+            <div><strong id="drop-title">หรือลากไฟล์ JSON มาวาง</strong><p>ใช้ตรวจสอบไฟล์ออฟไลน์ (ทะเบียนยา · สต็อก · ประวัติการจ่าย)</p></div>
+          </div>
+          <label class="button file-button">
+            <input type="file" id="file-input" accept=".json,application/json" multiple>
+            <span>เลือกไฟล์ JSON</span>
+          </label>
+        </div>
+        <div class="import-actions">
+          <p class="load-status" id="load-status" role="status"></p>
+          <a class="text-button" href="./status.html">ดูไฟสถานะ API</a>
+        </div>
+        <p class="load-error" id="load-error" role="alert" hidden></p>
+        <ul class="sources" id="sources" aria-label="ชุดข้อมูลที่โหลด" hidden></ul>
+      </div>
+      <div class="hero-art">
+        <div class="hero-image" aria-hidden="true"></div>
+        <div class="hero-console">
+          <p class="console-status mono" id="source-status">กำลังเชื่อมต่อ Supabase…</p>
+          <div class="console-actions" id="source-shortcuts" aria-label="เปิดชุดข้อมูลที่โหลดแล้ว">
+            <button type="button" data-source="catalog" disabled>ทะเบียนยา</button>
+            <button type="button" data-source="stock" disabled>สต็อก</button>
+            <button type="button" data-source="events" disabled>ประวัติการจ่าย</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div id="dashboard" hidden>
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="overview-copy">
+          <span class="mono">DATA OVERVIEW</span>
+          <h2 id="overview-title">ภาพรวมข้อมูลยา</h2>
+          <p id="snapshot"></p>
+          <a id="review-shortcut" class="review-shortcut" href="#checks" hidden></a>
+        </div>
+        <dl class="metrics">
+          <div><dt>รายการยา (SKU)</dt><dd id="metric-skus"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
+          <div><dt>หมวดหมู่</dt><dd id="metric-categories"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
+          <div><dt>ล็อตในคลัง</dt><dd id="metric-lots"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
+          <div><dt>จ่าย / คืน / ยกเลิก</dt><dd id="metric-events"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
+        </dl>
+      </section>
+
+      <div class="workspace">
+        <section class="records" id="records" aria-labelledby="records-title">
+          <div class="section-lead">
+            <h2 id="records-title">สำรวจรายการ</h2>
+            <div class="view-choices" id="view-choices" aria-label="เลือกชุดรายการ">
+              <button type="button" class="pill" data-view="catalog" aria-pressed="true">ทะเบียนยา</button>
+              <button type="button" class="pill" data-view="stock" aria-pressed="false">สต็อกรายล็อต</button>
+              <button type="button" class="pill" data-view="events" aria-pressed="false">ประวัติการจ่าย</button>
+            </div>
+            <p class="view-note" id="view-note"></p>
+          </div>
+          <form class="filters" id="filters" role="search">
+            <label>ค้นหา <input id="search" type="search" placeholder="ชื่อยา, SKU, ATC, ล็อต, ผู้ป่วย, เภสัชกร"></label>
+            <label>หมวดหมู่ <select id="category"><option value="">ทุกหมวด</option></select></label>
+            <label id="status-field">สถานะ <select id="status"><option value="">ทุกสถานะ</option></select></label>
+            <button class="text-button" type="reset">ล้างตัวกรอง</button>
+          </form>
+          <p class="result-count" id="result-count" role="status" tabindex="-1"></p>
+          <div class="table-region" id="table-region" role="region" tabindex="0" aria-label="ตารางรายการยา">
+            <table><thead id="table-head"></thead><tbody id="table-body"></tbody></table>
+          </div>
+          <ul id="mobile-records" class="mobile-records" aria-label="รายการยา" hidden></ul>
+          <p class="empty" id="empty-records" hidden></p>
+          <div class="pagination" id="pagination">
+            <button type="button" id="previous" class="pill">ก่อนหน้า</button>
+            <span id="page-number" class="mono"></span>
+            <button type="button" id="next" class="pill">ถัดไป</button>
+          </div>
+        </section>
+
+        <aside class="analytics" id="charts" aria-labelledby="share-title">
+          <section class="share-card">
+            <div class="chart-heading">
+              <h2 id="share-title">สัดส่วนตามหมวด</h2>
+              <button type="button" class="text-button replay" id="replay">เล่นซ้ำ</button>
+            </div>
+            <p id="chart-note">เลือกหมวดจากวงแหวนหรือกราฟแท่งเพื่อกรองรายการ</p>
+            <div class="ring-wrap" aria-hidden="true">
+              <div class="ring" id="ring"><div class="ring-slices"></div>
+                <div class="ring-center"><strong id="ring-number"></strong><span id="ring-unit"></span></div>
+              </div>
+              <p id="ring-caption"></p>
+            </div>
+            <h3 id="bars-title">จำนวน SKU ตามหมวด</h3>
+            <div class="bars" id="bars" role="group" aria-labelledby="bars-title"></div>
+          </section>
+        </aside>
+      </div>
+
+      <section class="checks" id="checks" aria-labelledby="checks-title">
+        <div>
+          <h2 id="checks-title">รายการที่ควรตรวจสอบ</h2>
+          <p>คำนวณตามกฎฐานข้อมูล Supabase (วันอ้างอิง <code>as_of</code>, จุดสั่งซื้อซ้ำ, ใกล้หมดอายุ 90 วัน, ล็อตกักกัน และประวัติการจ่าย)</p>
+        </div>
+        <div id="check-list" class="check-list"></div>
+      </section>
+    </div>
+    <noscript><p>กรุณาเปิด JavaScript เพื่อเชื่อมต่อข้อมูลจาก Supabase</p></noscript>
+  </main>
+</body>
+</html>
