@@ -328,7 +328,9 @@
     <div class="brand">
       <h1>จัดการระบบ (ผู้ดูแล)</h1>
       <p class="sub">เพิ่ม แก้ไข ปิดใช้งานยา รับเข้าล็อต คืนยา และยกเลิกรายการ</p>
-      <p class="asof">วันอ้างอิงของระบบ <b id="asof">กำลังโหลด…</b></p>
+      <p class="asof">วันอ้างอิงของระบบ <b id="asof">กำลังโหลด…</b>
+        <button type="button" id="btn-set-asof" class="btn secondary sm" style="margin-left:8px" data-write>เปลี่ยนวันที่</button>
+      </p>
     </div>
     <form id="cred-form" class="creds" autocomplete="off" novalidate>
       <div class="field">
@@ -925,7 +927,7 @@ function logRow(r) {
   }
   return el('tr', null,
     td(r.dispense_id, 'code'),
-    td(r.datetime, 'nowrap'),
+    td(str(r.datetime).replace('T', ' '), 'nowrap'),
     td(r.sku, 'code'),
     td(r.lot, 'nowrap'),
     td(fmtInt(r.qty), 'num'),
@@ -1398,6 +1400,23 @@ function openVoid(r) {
       (resp.dispense_id && resp.dispense_id !== r.dispense_id ? ' · เลขที่รายการยกเลิก ' + str(resp.dispense_id) : '')
   });
 }
+
+/* =========================================================
+   Action: เปลี่ยนวันอ้างอิงของระบบ (app_config.as_of)
+   ========================================================= */
+$('#btn-set-asof').addEventListener('click', () => {
+  const cur = state.asOf && isDate(state.asOf) ? state.asOf : '';
+  openDialog({
+    title: 'เปลี่ยนวันอ้างอิงของระบบ',
+    fields: [
+      { name: 'as_of', label: 'วันอ้างอิง (ค.ศ.)', type: 'date', required: true, full: true, value: cur, hint: 'มีผลกับยอดใช้ได้ การขายยา และการรับเข้าทั้งระบบ' }
+    ],
+    summary: (v) => 'เปลี่ยนวันอ้างอิงของระบบจาก ' + (state.asOf || 'ไม่ระบุ') + (v.as_of ? ' → เป็น ' + v.as_of : ''),
+    validate: (v) => (!v.as_of || !isDate(v.as_of)) ? ['กรุณาเลือกวันอ้างอิงให้ครบ'] : [],
+    body: (v) => ({ action: 'config_set_as_of', as_of: v.as_of }),
+    success: (resp, v) => 'เปลี่ยนวันอ้างอิงของระบบเป็น ' + (resp.as_of ? fmtDate(resp.as_of) : v.as_of) + ' แล้ว'
+  });
+});
 
 /* =========================================================
    เริ่มทำงาน

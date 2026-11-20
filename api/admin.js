@@ -16,6 +16,7 @@ const ACTIONS = {
   stock_set_status: ['stock_set_status', ['stock_id', 'status', 'reason', 'by'], b => ({ p_stock_id: b.stock_id, p_status: b.status, p_reason: b.reason, p_by: b.by })],
   dispense_return:  ['dispense_return',  ['dispense_id', 'qty', 'reason', 'by'], b => ({ p_dispense_id: b.dispense_id, p_qty: Number(b.qty), p_reason: b.reason, p_by: b.by })],
   dispense_void:    ['dispense_void',    ['dispense_id', 'reason', 'by'],      b => ({ p_dispense_id: b.dispense_id, p_reason: b.reason, p_by: b.by })],
+  config_set_as_of: ['config_set_as_of', ['as_of', 'by'],                      b => ({ p_as_of: b.as_of, p_by: b.by })],
 };
 
 function sameCode(a, b) {
@@ -47,7 +48,7 @@ module.exports = async (req, res) => {
   const missing = required.filter(k => b[k] === undefined || b[k] === null || b[k] === '');
   if (missing.length) return res.status(400).json({ ok: false, message: 'ข้อมูลไม่ครบ: ' + missing.join(', ') });
   // วันที่ต้องเป็น YYYY-MM-DD เท่านั้น กันฐานข้อมูลตีความ 03/04/2027 ตาม DateStyle ผิดวันโดยไม่แจ้ง
-  for (const k of ['received_date', 'expiry']) {
+  for (const k of ['received_date', 'expiry', 'as_of']) {
     if (b[k] !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(b[k]))) {
       return res.status(400).json({ ok: false, message: `${k} ต้องเป็นรูปแบบ YYYY-MM-DD (ค.ศ.)` });
     }
