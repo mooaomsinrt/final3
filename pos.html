@@ -3,65 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#121212">
+<meta name="theme-color" content="#ffffff">
 <meta name="description" content="หน้าขายยาและบันทึกการจ่ายยาสำหรับผู้ช่วยเภสัชกร ระบบร้านยาจำลอง">
 <title>หน้าขายยา · ระบบร้านยาจำลอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: dark;
-    --bg: #121212;
-    --card: #181818;
-    --sub: #202020;
-    --hover: #242424;
-    --line: #2a2a2a;
-    --border: #3a3a3a;
-    --text: #ffffff;
-    --muted: #b3b3b3;
-    --green: #1ed760;
-    --green-hover: #2ee670;
-    --green-soft: rgba(30, 215, 96, 0.14);
-    --green-border: rgba(30, 215, 96, 0.42);
-    --orange: #ffa42b;
-    --orange-soft: rgba(255, 164, 43, 0.15);
-    --orange-border: rgba(255, 164, 43, 0.45);
-    --red: #f3727f;
-    --red-soft: rgba(243, 114, 127, 0.14);
-    --red-border: rgba(243, 114, 127, 0.45);
-    --radius: 14px;
-    --pill: 9999px;
+    color-scheme: light;
+    --canvas: #ffffff;
+    --surface-soft: #f1f4f7;
+    --hover: #e9eef3;
+    --primary: #0064e0;
+    --primary-deep: #0457cb;
+    --primary-soft: rgba(0, 145, 255, 0.12);
+    --fb-blue: #1876f2;
+    --radio-selected: #0143b5;
+    --ink-button: #000000;
+    --ink-deep: #0a1317;
+    --ink: #1c1e21;
+    --charcoal: #444950;
+    --slate: #4b4c4f;
+    --steel: #5d6c7b;
+    --stone: #8595a4;
+    --hairline: #ced0d4;
+    --hairline-soft: #dee3e9;
+    --disabled: #bcc0c4;
+    --success: #31a24c;
+    --success-soft: rgba(49, 162, 76, 0.12);
+    --attention: #f2a918;
+    --warning: #f7b928;
+    --warning-soft: rgba(247, 185, 40, 0.18);
+    --critical: #e41e3f;
+    --critical-strong: #f0284a;
+    --critical-soft: rgba(228, 30, 63, 0.1);
+    --radius-lg: 8px;
+    --radius-xl: 16px;
+    --radius-xxl: 24px;
+    --pill: 100px;
     --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+  html, body { margin: 0; padding: 0; background: var(--canvas); color: var(--ink); }
   body {
-    font-family: "Noto Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Noto Sans Thai", "Montserrat", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    letter-spacing: -0.16px;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, p { margin: 0; }
-  h1, h2, h3 { font-weight: 700; line-height: 1.35; }
-  a { color: var(--green); text-underline-offset: .22em; }
+  h1, h2, h3 { font-weight: 500; line-height: 1.25; color: var(--ink-deep); }
+  a { color: var(--primary); text-underline-offset: .22em; }
   button, input, select { font: inherit; }
   [hidden] { display: none !important; }
+
+  /* ---------- แถบแจ้งเตือนด้านบน (promo-banner) ---------- */
+  .promo-banner {
+    background: var(--ink-deep);
+    color: var(--canvas);
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.14px;
+  }
 
   /* ---------- แถบนำทางร่วมของระบบ ---------- */
   .topbar {
     position: sticky;
     top: 0;
     z-index: 30;
-    background: rgba(18, 18, 18, 0.94);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--hairline-soft);
     backdrop-filter: blur(10px);
   }
   .topbar-inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 12px 20px;
+    min-height: 64px;
+    padding: 10px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -72,49 +95,62 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--text);
+    color: var(--ink-deep);
     font-weight: 700;
     text-decoration: none;
   }
-  .brand-dot {
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 4px var(--green-soft);
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: var(--primary);
+    color: #ffffff;
+    display: inline-grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 700;
     flex: 0 0 auto;
   }
   .nav {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px 18px;
+    gap: 8px;
   }
   .nav a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 600;
-  }
-  .nav a:hover { color: var(--green); text-decoration: underline; }
-  .nav-current {
-    padding: 4px 14px;
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 14px;
     border-radius: var(--pill);
-    background: var(--green-soft);
-    border: 1px solid var(--green-border);
-    color: var(--green);
-    font-size: 15px;
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
     font-weight: 700;
+    letter-spacing: -0.14px;
+  }
+  .nav a:hover { background: var(--surface-soft); }
+  .nav-current {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border-radius: var(--pill);
+    background: var(--ink-deep);
+    color: var(--canvas);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.14px;
   }
 
   /* ---------- โครงหน้าหลัก ---------- */
   main {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 22px 20px 56px;
+    padding: 28px 24px 64px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
   }
 
   .page-head {
@@ -122,10 +158,10 @@
     align-items: flex-end;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px 20px;
+    gap: 14px 20px;
   }
-  .page-head h1 { font-size: clamp(1.7rem, 3.5vw, 2.2rem); }
-  .page-sub { color: var(--muted); font-size: 16px; margin-top: 2px; }
+  .page-head h1 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); font-weight: 500; }
+  .page-sub { color: var(--slate); font-size: 16px; margin-top: 4px; }
   .head-meta {
     display: flex;
     align-items: center;
@@ -136,66 +172,63 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: var(--pill);
-    background: var(--card);
-    border: 1px solid var(--line);
-    color: var(--muted);
-    font-size: 16px;
+    background: var(--surface-soft);
+    border: 1px solid var(--hairline-soft);
+    color: var(--steel);
+    font-size: 14px;
+    font-weight: 600;
   }
   .asof-pill::before {
     content: "";
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--green);
+    background: var(--success);
   }
-  .asof-pill strong { color: var(--text); font-family: var(--mono); }
+  .asof-pill strong { color: var(--ink-deep); font-family: var(--mono); }
 
   /* ---------- แถบแจ้งเตือน ---------- */
-  .notice {
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-left: 4px solid var(--green);
-    color: var(--text);
-    font-weight: 600;
-  }
-
   .banner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 12px;
-    padding: 14px 18px;
-    border-radius: var(--radius);
-    border: 1px solid var(--orange-border);
-    background: var(--orange-soft);
-    color: var(--text);
+    padding: 14px 20px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--attention);
+    background: var(--warning-soft);
+    color: var(--ink-deep);
   }
   .banner.is-error {
-    border-color: var(--red-border);
-    background: var(--red-soft);
+    border-color: var(--critical-strong);
+    background: #fff5f6;
   }
-  .banner-title { font-weight: 700; color: var(--orange); }
-  .banner.is-error .banner-title { color: var(--red); }
-  .banner-text { color: var(--text); }
+  .banner-title { font-weight: 700; color: var(--ink-deep); }
+  .banner.is-error .banner-title { color: var(--critical); }
+  .banner-text { color: var(--charcoal); }
 
-  /* ---------- กริดพื้นที่ทำงาน (แท็บเล็ต 2 คอลัมน์) ---------- */
+  /* ---------- กริดพื้นที่ทำงาน (PDP/Buy-Now Configurator Split) ---------- */
   .pos-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: 20px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 24px;
     align-items: start;
   }
 
   .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 20px;
+    background: var(--canvas);
+    border: 1px solid var(--hairline-soft);
+    border-radius: var(--radius-xxl);
+    padding: 24px;
+  }
+  .card.checkout-rail {
+    position: sticky;
+    top: 84px;
+    border-radius: var(--radius-xl);
+    box-shadow: rgba(20, 22, 26, 0.16) 0px 1px 6px 0px;
   }
   .card-head {
     display: flex;
@@ -203,54 +236,57 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px 14px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
-  .card-head h2 { font-size: 1.3rem; }
-  .card-note { color: var(--muted); font-size: 16px; }
+  .card-head h2 { font-size: 24px; font-weight: 500; }
+  .card-note { color: var(--steel); font-size: 14px; font-weight: 600; }
 
   /* ---------- ฟอร์มและปุ่มแคปซูลขนาดใหญ่ ---------- */
   .field {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .field:last-child { margin-bottom: 0; }
   label {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.14px;
   }
   input[type="text"],
   input[type="number"],
   input[type="search"],
   select {
     width: 100%;
-    min-height: 50px;
+    min-height: 48px;
     padding: 10px 14px;
-    border-radius: 12px;
-    background: var(--bg);
-    color: var(--text);
-    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--canvas);
+    color: var(--ink);
+    border: 1px solid var(--hairline);
     font-size: 16px;
     line-height: 1.5;
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: border-color .14s ease, background-color .14s ease;
   }
-  select { color-scheme: dark; cursor: pointer; }
-  input::placeholder { color: #7e7e7e; }
+  input[type="search"] {
+    border-radius: var(--pill);
+    background: var(--surface-soft);
+    border-color: transparent;
+    padding-inline: 20px;
+  }
+  select { cursor: pointer; }
+  input::placeholder { color: var(--steel); }
   input:focus, select:focus {
     outline: none;
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px var(--green-soft);
+    border: 2px solid var(--fb-blue);
+    background: var(--canvas);
   }
   .field-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
-  }
-  .field-hint {
-    color: var(--muted);
-    font-size: 16px;
   }
 
   .btn {
@@ -258,100 +294,96 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 52px;
-    padding: 10px 26px;
+    min-height: 48px;
+    padding: 12px 28px;
     border-radius: var(--pill);
-    border: 1px solid transparent;
-    font-size: 17px;
+    border: 2px solid transparent;
+    font-size: 16px;
     font-weight: 700;
+    letter-spacing: -0.14px;
     cursor: pointer;
     white-space: nowrap;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     transition: background-color .14s ease, border-color .14s ease, transform .08s ease;
   }
-  .btn:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+  .btn:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
   .btn:active:not(:disabled) { transform: scale(0.98); }
+  /* button-buy-cta: Cobalt Primary #0064e0 */
   .btn.primary {
     width: 100%;
-    min-height: 56px;
-    background: var(--green);
-    color: #121212;
-    border-color: var(--green);
-    font-size: 18px;
+    min-height: 54px;
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    font-size: 17px;
   }
-  .btn.primary:hover:not(:disabled) {
-    background: var(--green-hover);
-    border-color: var(--green-hover);
+  .btn.primary:hover:not(:disabled),
+  .btn.primary:active:not(:disabled) {
+    background: var(--primary-deep);
+    border-color: var(--primary-deep);
   }
+  /* button-secondary: outlined pill */
   .btn.secondary {
-    min-height: 44px;
-    padding: 8px 18px;
-    font-size: 16px;
-    background: var(--sub);
-    color: var(--text);
-    border-color: var(--border);
+    min-height: 42px;
+    padding: 8px 20px;
+    font-size: 14px;
+    background: transparent;
+    color: var(--ink-deep);
+    border-color: var(--ink-deep);
   }
-  .btn.secondary:hover:not(:disabled) {
-    background: var(--hover);
-    border-color: var(--green);
-    color: var(--green);
-  }
+  .btn.secondary:hover:not(:disabled) { background: var(--surface-soft); }
   .btn:disabled {
-    opacity: 0.45;
+    background: var(--disabled);
+    border-color: var(--disabled);
+    color: #ffffff;
     cursor: not-allowed;
   }
 
-  /* ---------- รายการยาที่เลือกได้บนแท็บเล็ต ---------- */
+  /* ---------- รายการยาที่เลือกได้ (radio-option & radio-option-selected) ---------- */
   .drug-list {
     list-style: none;
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    max-height: 440px;
+    gap: 10px;
+    max-height: 460px;
     overflow-y: auto;
   }
   .drug-item-btn {
     width: 100%;
-    min-height: 68px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--text);
+    min-height: 70px;
+    padding: 14px 18px;
+    border-radius: var(--radius-lg);
+    background: var(--canvas);
+    border: 1px solid rgba(10, 19, 23, 0.12);
+    color: var(--ink);
     text-align: left;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
     touch-action: manipulation;
     transition: background-color .14s ease, border-color .14s ease;
   }
-  .drug-item-btn:hover {
-    background: var(--hover);
-    border-color: var(--border);
-  }
+  .drug-item-btn:hover { background: var(--surface-soft); }
   .drug-item-btn[aria-pressed="true"] {
-    background: var(--green-soft);
-    border-color: var(--green);
+    background: var(--primary-soft);
+    border: 2px solid var(--radio-selected);
   }
-  .drug-item-btn:focus-visible {
-    outline: 3px solid var(--green);
-    outline-offset: 2px;
-  }
+  .drug-item-btn:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
   .drug-info { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
   .drug-sku-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
   .drug-sku {
     font-family: var(--mono);
     font-weight: 700;
-    color: var(--green);
-    font-size: 16px;
+    color: var(--primary);
+    font-size: 15px;
   }
-  .drug-name { font-weight: 600; color: var(--text); }
-  .drug-sub { color: var(--muted); font-size: 16px; }
+  .drug-name { font-weight: 700; color: var(--ink-deep); }
+  .drug-sub { color: var(--steel); font-size: 14px; }
   .drug-stock {
     flex: 0 0 auto;
     text-align: right;
@@ -362,41 +394,40 @@
   }
   .drug-qty {
     font-family: var(--mono);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--ink-deep);
     white-space: nowrap;
   }
 
-  /* ---------- ป้ายต่ำกว่าจุดสั่งซื้อ (มีทั้งสีและข้อความ) ---------- */
+  /* ---------- ป้ายต่ำกว่าจุดสั่งซื้อ (badge-promo-yellow / badge-attention) ---------- */
   .badge-reorder {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 2px 11px;
+    padding: 4px 10px;
     border-radius: var(--pill);
-    background: var(--orange-soft);
-    border: 1px solid var(--orange-border);
-    color: var(--orange);
-    font-size: 16px;
+    background: var(--warning);
+    color: var(--ink-deep);
+    font-size: 12px;
     font-weight: 700;
     white-space: nowrap;
   }
   .badge-reorder::before {
     content: "";
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: var(--orange);
+    background: var(--ink-deep);
   }
 
   /* ---------- การ์ดสรุปยาที่เลือก ---------- */
   .selected-box {
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    margin-bottom: 16px;
+    padding: 16px 18px;
+    border-radius: var(--radius-xl);
+    background: var(--surface-soft);
+    border: 1px solid var(--hairline-soft);
+    margin-bottom: 18px;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -408,37 +439,37 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-  .selected-title { font-weight: 700; font-size: 1.1rem; color: var(--text); }
+  .selected-title { font-weight: 700; font-size: 18px; color: var(--ink-deep); }
   .selected-usable {
     font-family: var(--mono);
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--green);
+    color: var(--primary);
   }
-  .selected-meta { color: var(--muted); font-size: 16px; }
+  .selected-meta { color: var(--steel); font-size: 14px; }
 
   /* ---------- กล่องผลลัพธ์การจ่ายยา ---------- */
   .result-box {
-    margin-top: 16px;
+    margin-top: 18px;
     padding: 16px 18px;
-    border-radius: 14px;
-    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--hairline-soft);
   }
   .result-box.is-success {
-    background: var(--green-soft);
-    border-color: var(--green-border);
+    background: #f2fbf4;
+    border-color: var(--success);
   }
   .result-box.is-error {
-    background: var(--red-soft);
-    border-color: var(--red-border);
+    background: #fff5f6;
+    border-color: var(--critical-strong);
   }
   .result-heading {
-    font-size: 1.15rem;
+    font-size: 18px;
     font-weight: 700;
     margin-bottom: 6px;
   }
-  .result-box.is-success .result-heading { color: var(--green); }
-  .result-box.is-error .result-heading { color: var(--red); }
+  .result-box.is-success .result-heading { color: var(--success); }
+  .result-box.is-error .result-heading { color: var(--critical); }
   .result-lines {
     list-style: none;
     margin: 8px 0;
@@ -449,92 +480,97 @@
   }
   .result-lines li {
     padding: 8px 12px;
-    border-radius: 10px;
-    background: rgba(18, 18, 18, 0.72);
-    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--canvas);
+    border: 1px solid var(--hairline-soft);
     font-family: var(--mono);
-    font-size: 16px;
+    font-size: 15px;
+    color: var(--ink-deep);
   }
   .result-balance {
     margin-top: 8px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--ink-deep);
   }
 
-  /* ---------- ตารางรายการจ่ายล่าสุด 8 แถว (มีเส้นคั่นแถว) ---------- */
+  /* ---------- ตารางรายการจ่ายล่าสุด 8 แถว (tech-specs-table) ---------- */
   .table-wrap {
     overflow-x: auto;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--card);
+    border: 1px solid var(--hairline-soft);
+    border-radius: var(--radius-xl);
+    background: var(--canvas);
   }
   table {
     width: 100%;
     min-width: 720px;
     border-collapse: collapse;
-    font-size: 16px;
+    font-size: 15px;
     text-align: left;
   }
   thead th {
-    background: var(--sub);
-    color: var(--muted);
-    font-weight: 600;
-    padding: 12px;
-    border-bottom: 1px solid var(--line);
+    background: var(--surface-soft);
+    color: var(--ink);
+    font-weight: 700;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--hairline-soft);
     white-space: nowrap;
   }
   tbody td {
-    padding: 12px;
-    border-bottom: 1px solid var(--line);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--hairline-soft);
     vertical-align: top;
+    color: var(--charcoal);
   }
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: var(--hover); }
-  td.code { font-family: var(--mono); font-weight: 700; color: var(--green); white-space: nowrap; }
-  th.num, td.num { text-align: right; font-family: var(--mono); white-space: nowrap; }
+  tbody tr:hover td { background: #f8fafc; }
+  td.code { font-family: var(--mono); font-weight: 700; color: var(--primary); white-space: nowrap; }
+  th.num, td.num { text-align: right; font-family: var(--mono); white-space: nowrap; color: var(--ink-deep); }
   td.nowrap { white-space: nowrap; }
   .type-pill {
     display: inline-block;
-    padding: 2px 10px;
+    padding: 4px 10px;
     border-radius: var(--pill);
-    border: 1px solid var(--border);
-    background: var(--sub);
-    color: var(--text);
-    font-size: 16px;
-    font-weight: 600;
+    background: var(--surface-soft);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 700;
     white-space: nowrap;
   }
-  .type-pill.is-dispense { border-color: var(--green-border); background: var(--green-soft); color: var(--green); }
-  .type-pill.is-return { border-color: var(--orange-border); background: var(--orange-soft); color: var(--orange); }
-  .type-pill.is-void { border-color: var(--red-border); background: var(--red-soft); color: var(--red); }
+  .type-pill.is-dispense { background: var(--success); color: #ffffff; }
+  .type-pill.is-return { background: var(--attention); color: #ffffff; }
+  .type-pill.is-void { background: var(--critical); color: #ffffff; }
 
   .empty-row td {
     text-align: center;
-    color: var(--muted);
+    color: var(--steel);
     padding: 24px;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
     .pos-grid { grid-template-columns: minmax(0, 1fr); }
+    .card.checkout-rail { position: static; }
   }
   @media (max-width: 560px) {
     .field-row { grid-template-columns: minmax(0, 1fr); }
-    main { padding: 16px 14px 44px; }
-    .topbar-inner { padding: 12px 14px; }
+    main { padding: 18px 14px 48px; }
+    .topbar-inner { padding: 10px 14px; }
+    .card { padding: 18px; border-radius: 18px; }
   }
 </style>
 </head>
 <body>
 
+<div class="promo-banner" role="note">ข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
+
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="./index.html"><span class="brand-dot" aria-hidden="true"></span>ระบบร้านยาจำลอง</a>
+    <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">Rx</span>ระบบร้านยาจำลอง</a>
     <nav class="nav" aria-label="นำทางระบบ">
       <a href="./index.html">หน้าแรก</a>
       <span class="nav-current" aria-current="page">หน้าขายยา</span>
       <a href="./admin.html">จัดการระบบ</a>
-      <a href="./dashboard.html">Dashboard คลังยา</a>
-      <a href="./status.html">ตรวจสถานะระบบ</a>
+      <a href="./dashboard.html">Dashboard</a>
+      <a href="./status.html">สถานะระบบ</a>
     </nav>
   </div>
 </header>
@@ -550,8 +586,6 @@
       <button type="button" class="btn secondary" id="refresh-btn">รีเฟรชข้อมูล</button>
     </div>
   </section>
-
-  <p class="notice" role="note">ข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</p>
 
   <div class="banner" id="mode-banner" role="alert" hidden>
     <div>
@@ -576,7 +610,7 @@
     </section>
 
     <!-- คอลัมน์ขวา: ฟอร์มบันทึกการจ่ายยา -->
-    <section class="card" aria-labelledby="form-title">
+    <section class="card checkout-rail" aria-labelledby="form-title">
       <div class="card-head">
         <h2 id="form-title">บันทึกการจ่ายยา</h2>
         <span class="card-note" id="source-mode-label">เชื่อมต่อ /api/data</span>

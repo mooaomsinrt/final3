@@ -3,60 +3,72 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#121212">
+<meta name="theme-color" content="#ffffff">
 <title>จัดการระบบ (ผู้ดูแล) · ระบบร้านยาจำลอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: dark;
-    --bg: #121212;
-    --card: #181818;
-    --sub: #202020;
-    --line: #2a2a2a;
-    --hover: #222222;
-    --border: #3a3a3a;
-    --text: #ffffff;
-    --muted: #b3b3b3;
-    --green: #1ed760;
-    --green-hover: #2ee670;
-    --green-soft: rgba(30, 215, 96, 0.14);
-    --green-border: rgba(30, 215, 96, 0.42);
-    --orange: #f5b942;
-    --orange-soft: rgba(245, 185, 66, 0.14);
-    --gray: #8a8a8a;
-    --red: #ff7b72;
-    --red-soft: rgba(255, 123, 114, 0.14);
-    --radius: 12px;
-    --card-radius: 16px;
-    --pill: 9999px;
-    --shadow-card: rgba(0, 0, 0, 0.32) 0px 8px 18px;
-    --shadow-dialog: rgba(0, 0, 0, 0.55) 0px 12px 32px;
+    color-scheme: light;
+    --bg: #ffffff;
+    --card: #ffffff;
+    --sub: #f1f4f7;
+    --line: #dee3e9;
+    --hover: #f5f7fa;
+    --border: #ced0d4;
+    --text: #1c1e21;
+    --ink-deep: #0a1317;
+    --muted: #5d6c7b;
+    --primary: #0064e0;
+    --primary-deep: #0457cb;
+    --fb-blue: #1876f2;
+    --green: #31a24c;
+    --green-soft: rgba(49, 162, 76, 0.12);
+    --orange: #f2a918;
+    --warning: #f7b928;
+    --orange-soft: rgba(247, 185, 40, 0.18);
+    --gray: #8595a4;
+    --red: #e41e3f;
+    --red-strong: #f0284a;
+    --red-soft: rgba(228, 30, 63, 0.1);
+    --radius: 8px;
+    --card-radius: 24px;
+    --pill: 100px;
+    --shadow-card: rgba(20, 22, 26, 0.06) 0px 1px 4px 0px;
+    --shadow-dialog: rgba(20, 22, 26, 0.3) 0px 8px 32px;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--bg); color: var(--text); }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Noto Sans Thai', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-family: 'Noto Sans Thai', 'Montserrat', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 { margin: 0; font-weight: 700; line-height: 1.35; }
-  h1 { font-size: clamp(1.5rem, 3.2vw, 1.85rem); }
-  h2 { font-size: 22px; }
+  h1, h2, h3 { margin: 0; font-weight: 500; line-height: 1.25; color: var(--ink-deep); }
+  h1 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); }
+  h2 { font-size: 24px; }
   h3 { font-size: 20px; }
   p { margin: 0; }
-  a { color: var(--green); text-underline-offset: .22em; }
+  a { color: var(--primary); text-underline-offset: .22em; }
   [hidden] { display: none !important; }
 
-  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Promo Notice Strip ---------- */
+  .promo-banner {
+    background: var(--ink-deep); color: #ffffff;
+    padding: 10px 20px; text-align: center;
+    font-size: 14px; font-weight: 700; letter-spacing: -0.14px;
+  }
 
   /* ---------- แถบนำทางร่วมของระบบ ---------- */
   .sys-topbar {
-    background: rgba(18, 18, 18, 0.92);
+    background: rgba(255, 255, 255, 0.96);
     border-bottom: 1px solid var(--line);
     backdrop-filter: blur(10px);
     position: sticky;
@@ -64,204 +76,206 @@
     z-index: 30;
   }
   .sys-topbar-inner {
-    max-width: 1440px; margin: 0 auto; padding: 12px 24px;
+    max-width: 1360px; margin: 0 auto; min-height: 64px; padding: 10px 24px;
     display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 10px 20px;
+    flex-wrap: wrap; gap: 10px 18px;
   }
   .sys-brand {
     display: inline-flex; align-items: center; gap: 10px;
-    color: var(--text); font-weight: 700; text-decoration: none;
+    color: var(--ink-deep); font-weight: 700; text-decoration: none;
   }
   .sys-brand-dot {
-    width: 13px; height: 13px; border-radius: 50%;
-    background: var(--green); box-shadow: 0 0 0 4px var(--green-soft);
+    width: 28px; height: 28px; border-radius: 9999px;
+    background: var(--primary); color: #ffffff;
+    display: inline-grid; place-items: center; font-size: 13px; font-weight: 700;
     flex: 0 0 auto;
   }
-  .sys-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; }
-  .sys-nav a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 600; }
-  .sys-nav a:hover { color: var(--green); text-decoration: underline; }
+  .sys-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .sys-nav a {
+    display: inline-flex; align-items: center; padding: 7px 14px; border-radius: var(--pill);
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: -0.14px;
+  }
+  .sys-nav a:hover { background: var(--sub); }
   .sys-nav .sys-current {
-    border: 1px solid var(--green-border); background: var(--green-soft); color: var(--green);
-    border-radius: var(--pill); padding: 3px 12px; font-size: 14px; font-weight: 600;
+    background: var(--ink-deep); color: #ffffff; border: 1px solid var(--ink-deep);
+    border-radius: var(--pill); padding: 7px 16px; font-size: 14px; font-weight: 700; letter-spacing: -0.14px;
   }
 
   /* ---------- ส่วนหัว ---------- */
   header.top {
-    background: var(--card);
+    background: var(--sub);
     border-bottom: 1px solid var(--line);
   }
   .top-inner {
-    max-width: 1440px; margin: 0 auto;
+    max-width: 1360px; margin: 0 auto;
     display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 20px 24px; padding: 18px 24px; flex-wrap: wrap;
+    gap: 20px 24px; padding: 20px 24px; flex-wrap: wrap;
   }
-  .brand .sub { color: var(--muted); font-size: 15px; margin-top: 2px; }
+  .brand .sub { color: var(--muted); font-size: 15px; margin-top: 4px; }
   .asof {
-    display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
-    background: var(--green-soft); border: 1px solid var(--green-border); border-radius: var(--pill);
-    padding: 3px 14px; font-size: 14px; color: var(--text);
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: var(--pill);
+    padding: 5px 14px; font-size: 14px; color: var(--muted); font-weight: 600;
   }
   .asof::before {
     content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green);
   }
-  .asof b { font-weight: 700; color: var(--green); }
-  .creds { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+  .asof b { font-weight: 700; color: var(--ink-deep); }
+  .creds { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
   .creds .field { display: flex; flex-direction: column; gap: 4px; }
   .creds input { width: 190px; }
   .cred-status { flex-basis: 100%; text-align: right; font-size: 14px; color: var(--muted); min-height: 1.5em; }
-  .cred-status.warn { color: var(--orange); }
+  .cred-status.warn { color: #9c6500; font-weight: 600; }
 
   .lock-note {
-    background: var(--orange-soft); border-top: 1px solid rgba(245, 185, 66, 0.25);
-    color: #ffd782; font-size: 15px; padding: 9px 24px;
+    background: var(--warning); border-top: 1px solid rgba(10, 19, 23, 0.08);
+    color: var(--ink-deep); font-size: 14px; font-weight: 700; padding: 10px 24px; text-align: center;
   }
 
   /* ---------- ฟอร์ม ---------- */
-  label { font-size: 14px; color: var(--muted); font-weight: 500; }
+  label { font-size: 14px; color: var(--text); font-weight: 700; letter-spacing: -0.14px; }
   input[type=text], input[type=password], input[type=number], input[type=date], input[type=search], select, textarea {
     font: inherit; font-size: 16px; color: var(--text);
-    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 8px 12px; min-height: 44px;
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: border-color .14s ease, background-color .14s ease;
   }
-  input[type=date] { color-scheme: dark; }
-  select { color-scheme: dark; cursor: pointer; }
+  input[type=search] { border-radius: var(--pill); background: var(--sub); border-color: transparent; padding-inline: 18px; }
+  select { cursor: pointer; }
   textarea { resize: vertical; min-height: 76px; width: 100%; }
-  input::placeholder, textarea::placeholder { color: #7e7e7e; }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
   input:focus, select:focus, textarea:focus {
-    outline: none; border-color: var(--green); box-shadow: 0 0 0 2px var(--green-soft);
+    outline: none; border: 2px solid var(--fb-blue); background: var(--bg);
   }
-  input:focus-visible, select:focus-visible, textarea:focus-visible {
-    outline: 2px solid var(--green); outline-offset: 2px; border-color: var(--green);
-  }
-  .check { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-size: 15px; cursor: pointer; min-height: 44px; }
-  .check input { width: 18px; height: 18px; accent-color: var(--green); }
+  .check { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-size: 14px; font-weight: 600; cursor: pointer; min-height: 44px; }
+  .check input { width: 18px; height: 18px; accent-color: var(--primary); }
 
-  /* ---------- ปุ่ม (แคปซูล) ---------- */
+  /* ---------- ปุ่ม (แคปซูล rounded.full = 100px) ---------- */
   .btn {
-    font: inherit; font-size: 15px; font-weight: 700; line-height: 1.4;
-    border-radius: var(--pill); padding: 8px 20px; min-height: 44px;
-    border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+    font: inherit; font-size: 14px; font-weight: 700; line-height: 1.43; letter-spacing: -0.14px;
+    border-radius: var(--pill); padding: 10px 24px; min-height: 44px;
+    border: 2px solid transparent; cursor: pointer; white-space: nowrap;
     touch-action: manipulation;
     transition: transform .08s ease, background-color .14s ease, border-color .14s ease, color .14s ease;
   }
-  .btn:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+  .btn:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
   .btn:active:not(:disabled) { transform: scale(0.98); }
-  .btn.primary { background: var(--green); color: #121212; border-color: var(--green); }
-  .btn.primary:hover:not(:disabled) { background: var(--green-hover); border-color: var(--green-hover); }
-  .btn.secondary { background: var(--card); color: var(--text); border-color: var(--border); font-weight: 600; }
-  .btn.secondary:hover:not(:disabled) { background: var(--hover); border-color: var(--green); color: var(--green); }
-  .btn.danger { background: var(--red-soft); color: var(--red); border: 1px solid rgba(255, 123, 114, 0.45); font-weight: 600; }
-  .btn.danger:hover:not(:disabled) { background: var(--red); color: #121212; border-color: var(--red); }
-  .btn.sm { padding: 5px 14px; min-height: 36px; font-size: 14px; }
-  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn.primary { background: var(--primary); color: #ffffff; border-color: var(--primary); }
+  .btn.primary:hover:not(:disabled) { background: var(--primary-deep); border-color: var(--primary-deep); }
+  .btn.secondary { background: transparent; color: var(--ink-deep); border-color: var(--ink-deep); }
+  .btn.secondary:hover:not(:disabled) { background: var(--sub); }
+  .btn.danger { background: transparent; color: var(--red); border-color: var(--red); }
+  .btn.danger:hover:not(:disabled) { background: var(--red); color: #ffffff; }
+  .btn.sm { padding: 6px 14px; min-height: 36px; font-size: 13px; border-width: 1.5px; }
+  .btn:disabled { background: #bcc0c4; border-color: #bcc0c4; color: #ffffff; cursor: not-allowed; }
 
   /* ---------- แถบเตือน ---------- */
   .banner {
     display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    border: 1px solid rgba(245, 185, 66, 0.4); background: var(--orange-soft);
-    color: var(--text); border-radius: var(--radius); padding: 13px 16px; margin-top: 16px;
+    border: 1px solid var(--orange); background: var(--orange-soft);
+    color: var(--ink-deep); border-radius: 16px; padding: 14px 18px; margin-top: 18px;
   }
-  .banner .title { color: #ffd782; font-weight: 700; }
+  .banner .title { color: var(--ink-deep); font-weight: 700; }
   .loading { color: var(--muted); padding: 32px 0; }
 
-  /* ---------- แท็บ ---------- */
-  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 22px 0 16px; }
+  /* ---------- แท็บ (button-pill-tab & button-pill-tab-active) ---------- */
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0 18px; }
   .tab {
-    font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; min-height: 44px;
-    background: var(--card); color: var(--muted); border: 1px solid var(--line);
-    border-radius: var(--pill); padding: 8px 22px;
+    font: inherit; font-size: 14px; font-weight: 700; letter-spacing: -0.14px; cursor: pointer; min-height: 42px;
+    background: var(--bg); color: var(--text); border: 1px solid var(--border);
+    border-radius: var(--pill); padding: 8px 20px;
     transition: background-color .14s ease, border-color .14s ease, color .14s ease;
   }
-  .tab:hover { color: var(--text); background: var(--hover); border-color: var(--border); }
-  .tab[aria-selected=true] { background: var(--green-soft); color: var(--green); border-color: var(--green); font-weight: 700; }
-  .tab:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
-  .tab .n { font-weight: 500; opacity: .88; }
+  .tab:hover { background: var(--sub); }
+  .tab[aria-selected=true] { background: var(--ink-deep); color: #ffffff; border-color: var(--ink-deep); }
+  .tab:focus-visible { outline: 2px solid var(--fb-blue); outline-offset: 2px; }
+  .tab .n { font-weight: 500; opacity: .82; }
 
   .panel {
     background: var(--card); border: 1px solid var(--line);
     border-radius: var(--card-radius); box-shadow: var(--shadow-card);
-    padding: 20px; margin-bottom: 32px;
+    padding: 24px; margin-bottom: 40px;
   }
-  .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
   .toolbar { display: flex; align-items: flex-end; gap: 14px 16px; flex-wrap: wrap; margin-bottom: 14px; }
   .toolbar .field { display: flex; flex-direction: column; gap: 4px; }
   .toolbar input[type=search] { width: 300px; max-width: 100%; }
-  .count { color: var(--muted); font-size: 14px; margin-left: auto; align-self: center; }
+  .count { color: var(--muted); font-size: 14px; font-weight: 600; margin-left: auto; align-self: center; }
 
   /* ---------- ตาราง ---------- */
   .table-wrap {
     overflow: auto; max-height: calc(100vh - 330px); min-height: 320px;
-    border: 1px solid var(--line); border-radius: var(--radius); background: var(--card);
+    border: 1px solid var(--line); border-radius: 16px; background: var(--card);
   }
-  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
   thead th {
     position: sticky; top: 0; z-index: 1;
-    background: #1e1e1e; color: var(--muted); font-weight: 600; text-align: left; font-size: 14px;
-    padding: 11px 12px; border-bottom: 1px solid var(--line); white-space: nowrap;
+    background: var(--sub); color: var(--ink-deep); font-weight: 700; text-align: left; font-size: 14px;
+    padding: 12px 12px; border-bottom: 1px solid var(--line); white-space: nowrap;
   }
-  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody td { padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: #444950; }
   tbody tr:hover td { background: var(--hover); }
   tbody tr:last-child td { border-bottom: none; }
-  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  td.code { white-space: nowrap; font-weight: 600; font-family: "Cascadia Mono", Consolas, ui-monospace, monospace; font-size: 14px; color: var(--green); }
+  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-deep); }
+  td.code { white-space: nowrap; font-weight: 700; font-family: "Cascadia Mono", Consolas, ui-monospace, monospace; font-size: 13.5px; color: var(--primary); }
   td.nowrap { white-space: nowrap; }
   td.actions { white-space: nowrap; }
   td.actions .btn + .btn { margin-left: 6px; }
   .muted { color: var(--muted); }
-  .small { font-size: 13.5px; color: var(--muted); display: block; font-family: 'Noto Sans Thai', system-ui, sans-serif; font-weight: 400; }
+  .small { font-size: 13px; color: var(--muted); display: block; font-family: 'Noto Sans Thai', system-ui, sans-serif; font-weight: 400; }
   .empty td { text-align: center; color: var(--muted); padding: 28px; }
-  tr.row-expired td { background: rgba(255, 123, 114, 0.08); }
+  tr.row-expired td { background: #fff5f6; }
   tr.row-expired td:first-child { box-shadow: inset 4px 0 0 var(--red); }
   .more-row { display: flex; justify-content: center; padding-top: 14px; }
 
   /* ---------- ป้ายสถานะ (สี + ข้อความ) ---------- */
   .badge {
     display: inline-flex; align-items: center; gap: 6px;
-    border-radius: var(--pill); padding: 2px 12px; font-size: 14px; font-weight: 600;
-    border: 1px solid; white-space: nowrap;
+    border-radius: var(--pill); padding: 3px 11px; font-size: 12px; font-weight: 700;
+    border: 1px solid transparent; white-space: nowrap;
   }
-  .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-  .b-active { color: var(--green); border-color: var(--green-border); background: var(--green-soft); }
-  .b-quarantine { color: #ffd782; border-color: rgba(245, 185, 66, 0.42); background: var(--orange-soft); }
-  .b-written_off { color: #c8c8c8; border-color: var(--gray); background: rgba(138, 138, 138, 0.14); }
-  .b-on { color: var(--green); border-color: var(--green-border); background: var(--green-soft); }
-  .b-off { color: #c8c8c8; border-color: var(--gray); background: transparent; border-style: dashed; }
-  .b-dispense { color: var(--text); border-color: var(--border); background: var(--sub); }
-  .b-return { color: #9ad8ff; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.12); }
-  .b-void { color: #c8c8c8; border-color: var(--gray); background: transparent; border-style: dashed; }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .b-active { color: #ffffff; background: var(--green); }
+  .b-quarantine { color: var(--ink-deep); background: var(--warning); }
+  .b-written_off { color: var(--muted); border-color: var(--border); background: var(--sub); }
+  .b-on { color: #ffffff; background: var(--green); }
+  .b-off { color: var(--muted); border-color: var(--border); background: transparent; border-style: dashed; }
+  .b-dispense { color: var(--ink-deep); background: var(--sub); border-color: var(--line); }
+  .b-return { color: #ffffff; background: var(--primary); }
+  .b-void { color: #ffffff; background: var(--red); }
   .tag-expired {
-    display: inline-block; margin-left: 8px; font-size: 13px; font-weight: 600;
-    color: var(--red); border: 1px solid rgba(255, 123, 114, 0.45); background: var(--red-soft);
-    border-radius: var(--pill); padding: 1px 10px;
+    display: inline-block; margin-left: 8px; font-size: 12px; font-weight: 700;
+    color: #ffffff; background: var(--red);
+    border-radius: var(--pill); padding: 2px 10px;
   }
 
   /* ---------- กล่องยืนยัน ---------- */
   dialog {
     width: min(600px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
-    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    background: var(--card); color: var(--text); border: 1px solid var(--line);
     border-radius: var(--card-radius); padding: 0; box-shadow: var(--shadow-dialog);
   }
-  dialog::backdrop { background: rgba(0, 0, 0, 0.74); backdrop-filter: blur(4px); }
-  .dlg-body { padding: 22px 24px 20px; display: flex; flex-direction: column; gap: 14px; }
+  dialog::backdrop { background: rgba(10, 19, 23, 0.56); backdrop-filter: blur(4px); }
+  .dlg-body { padding: 24px; display: flex; flex-direction: column; gap: 14px; }
   .dlg-summary {
-    background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 12px 14px; font-size: 15px; color: var(--text);
+    background: var(--sub); border: 1px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; font-size: 15px; color: var(--ink-deep);
   }
-  .dlg-summary.danger { border-color: rgba(255, 123, 114, 0.5); background: var(--red-soft); }
+  .dlg-summary.danger { border-color: var(--red-strong); background: #fff5f6; }
   .dlg-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
   .dlg-fields .field { display: flex; flex-direction: column; gap: 4px; }
   .dlg-fields .field.full { grid-column: 1 / -1; }
   .dlg-fields input, .dlg-fields select { width: 100%; }
-  .hint { font-size: 13.5px; color: var(--muted); }
+  .hint { font-size: 13px; color: var(--muted); }
   .req { color: var(--red); }
   .dlg-error {
-    border: 1px solid rgba(255, 123, 114, 0.45); background: var(--red-soft); color: #ffb4ae;
-    border-radius: var(--radius); padding: 10px 14px; font-weight: 500;
+    border: 1px solid var(--red-strong); background: #fff5f6; color: var(--red);
+    border-radius: 12px; padding: 10px 14px; font-weight: 600;
   }
   .reauth {
     border: 1px dashed var(--orange); background: var(--orange-soft);
-    border-radius: var(--radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;
+    border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;
   }
   .dlg-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 6px; flex-wrap: wrap; }
 
@@ -269,17 +283,17 @@
   .toast {
     position: fixed; right: 24px; bottom: 24px; z-index: 50; width: min(440px, calc(100vw - 32px));
     display: flex; gap: 12px; align-items: flex-start;
-    background: var(--card); border: 1px solid var(--green-border); border-left: 5px solid var(--green);
-    border-radius: var(--radius); box-shadow: var(--shadow-dialog); padding: 13px 15px;
+    background: var(--ink-deep); color: #ffffff;
+    border-radius: 16px; box-shadow: var(--shadow-dialog); padding: 14px 18px;
   }
-  .toast .t-title { color: var(--green); font-weight: 700; }
+  .toast .t-title { color: #6be687; font-weight: 700; }
   .toast .t-msg { flex: 1; }
   .toast .x {
-    font: inherit; font-size: 14px; background: transparent; color: var(--muted); border: 1px solid var(--border);
-    border-radius: var(--pill); padding: 2px 12px; cursor: pointer; min-height: 34px;
+    font: inherit; font-size: 13px; font-weight: 700; background: rgba(255, 255, 255, 0.14); color: #ffffff; border: 0;
+    border-radius: var(--pill); padding: 4px 14px; cursor: pointer; min-height: 34px;
   }
-  .toast .x:hover { color: var(--text); border-color: var(--green); }
-  .toast .x:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+  .toast .x:hover { background: rgba(255, 255, 255, 0.24); }
+  .toast .x:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
 
   @media (max-width: 720px) {
     .wrap, .top-inner, .sys-topbar-inner, .lock-note { padding-inline: 16px; }
@@ -294,15 +308,17 @@
 </head>
 <body>
 
+<div class="promo-banner" role="note">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
+
 <div class="sys-topbar">
   <div class="sys-topbar-inner">
-    <a class="sys-brand" href="./index.html"><span class="sys-brand-dot" aria-hidden="true"></span>ระบบร้านยาจำลอง</a>
+    <a class="sys-brand" href="./index.html"><span class="sys-brand-dot" aria-hidden="true">Rx</span>ระบบร้านยาจำลอง</a>
     <nav class="sys-nav" aria-label="นำทางระบบ">
       <a href="./index.html">หน้าแรก</a>
       <a href="./pos.html">หน้าขายยา</a>
-      <a href="./dashboard.html">Dashboard คลังยา</a>
-      <a href="./status.html">ตรวจสถานะระบบ</a>
-      <span class="sys-current" aria-current="page">จัดการระบบ (ผู้ดูแล)</span>
+      <span class="sys-current" aria-current="page">จัดการระบบ</span>
+      <a href="./dashboard.html">Dashboard</a>
+      <a href="./status.html">สถานะระบบ</a>
     </nav>
   </div>
 </div>
@@ -311,7 +327,7 @@
   <div class="top-inner">
     <div class="brand">
       <h1>จัดการระบบ (ผู้ดูแล)</h1>
-      <p class="sub">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</p>
+      <p class="sub">เพิ่ม แก้ไข ปิดใช้งานยา รับเข้าล็อต คืนยา และยกเลิกรายการ</p>
       <p class="asof">วันอ้างอิงของระบบ <b id="asof">กำลังโหลด…</b></p>
     </div>
     <form id="cred-form" class="creds" autocomplete="off" novalidate>

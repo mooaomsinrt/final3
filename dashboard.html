@@ -3,27 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#121212">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="แดชบอร์ดบัญชียา สต็อกรายล็อต และประวัติการจ่ายยา เชื่อมต่อฐานข้อมูล Supabase">
   <title>Dashboard คลังยา · ระบบร้านยาจำลอง</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
   <script src="./app.js" defer></script>
 </head>
 <body>
+  <div class="promo-banner" role="note">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
   <header class="topbar">
     <div class="shell topbar-inner">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>คลังข้อมูลยา</a>
+      <a class="brand" href="./index.html"><span class="brand-mark" aria-hidden="true">Rx</span>คลังข้อมูลยา</a>
       <nav id="navigation" aria-label="ทางลัด" hidden>
         <a href="#records">รายการ</a><a href="#charts">กราฟ</a><a href="#checks">ตรวจข้อมูล</a>
       </nav>
       <div class="topbar-meta">
-        <a class="status-link" href="./index.html">หน้าแรก</a>
-        <a class="status-link" href="./pos.html">หน้าขายยา</a>
-        <a class="status-link" href="./admin.html">จัดการระบบ</a>
-        <a class="status-link" href="./status.html">ตรวจสถานะระบบ</a>
+        <a class="nav-pill" href="./index.html">หน้าแรก</a>
+        <a class="nav-pill" href="./pos.html">หน้าขายยา</a>
+        <a class="nav-pill" href="./admin.html">จัดการระบบ</a>
+        <a class="nav-pill is-active" href="./dashboard.html" aria-current="page">Dashboard</a>
+        <a class="nav-pill" href="./status.html">สถานะระบบ</a>
         <span class="dataset-label" id="dataset-label">กำลังเชื่อมต่อ…</span>
       </div>
     </div>

@@ -3,80 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#121212">
+<meta name="theme-color" content="#ffffff">
 <title>ตรวจสถานะระบบ · ระบบร้านยาจำลอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    color-scheme: dark;
-    --bg: #121212; --card: #181818; --card-hover: #222222;
-    --text: #ffffff; --muted: #b3b3b3; --line: #2a2a2a; --line-strong: #3a3a3a;
-    --ok: #1ed760; --ok-bg: rgba(30, 215, 96, 0.14);
-    --bad: #ff7b72; --bad-bg: rgba(255, 123, 114, 0.14);
-    --wait: #8a8a8a; --wait-bg: #262626;
-    --warn: #ffd782; --warn-bg: rgba(245, 185, 66, 0.14);
-    --accent: #1ed760; --accent-hover: #2ee670;
+    color-scheme: light;
+    --bg: #ffffff; --card: #ffffff; --sub: #f1f4f7;
+    --ink-deep: #0a1317; --text: #1c1e21; --muted: #5d6c7b;
+    --line: #dee3e9; --border: #ced0d4;
+    --ok: #31a24c; --ok-bg: rgba(49, 162, 76, 0.12);
+    --bad: #e41e3f; --bad-bg: rgba(228, 30, 63, 0.1);
+    --wait: #8595a4; --wait-bg: #f1f4f7;
+    --warn: #8c5c00; --warn-bg: rgba(247, 185, 40, 0.22);
+    --accent: #0064e0; --accent-hover: #0457cb;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.6 'Noto Sans Thai', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  .topbar { background: rgba(18, 18, 18, 0.92); border-bottom: 1px solid var(--line); }
-  .topbar-inner { max-width: 760px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; text-decoration: none; }
-  .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--ok-bg); }
-  .nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 600; }
-  .nav-links a:hover { color: var(--accent); text-decoration: underline; }
-  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
-  h1 { font-size: clamp(1.55rem, 4vw, 2rem); margin: 0 0 6px; font-weight: 700; }
-  .sub { color: var(--muted); margin: 0 0 20px; }
-  .banner { padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: none; }
+         font: 16px/1.55 'Noto Sans Thai', 'Montserrat', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+         letter-spacing: -0.16px; -webkit-font-smoothing: antialiased; }
+  .promo-banner { background: var(--ink-deep); color: #ffffff; padding: 10px 20px; text-align: center; font-size: 14px; font-weight: 700; letter-spacing: -0.14px; }
+  .topbar { background: rgba(255, 255, 255, 0.96); border-bottom: 1px solid var(--line); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 20; }
+  .topbar-inner { max-width: 820px; margin: 0 auto; min-height: 64px; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-deep); font-weight: 700; text-decoration: none; }
+  .brand-dot { width: 28px; height: 28px; border-radius: 9999px; background: var(--accent); color: #ffffff; display: inline-grid; place-items: center; font-size: 13px; font-weight: 700; }
+  .nav-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { display: inline-flex; align-items: center; padding: 7px 14px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: -0.14px; }
+  .nav-links a:hover { background: var(--sub); }
+  .nav-links .nav-current { display: inline-flex; align-items: center; padding: 7px 16px; border-radius: 100px; background: var(--ink-deep); color: #ffffff; font-size: 14px; font-weight: 700; }
+  main { max-width: 820px; margin: 0 auto; padding: 28px 20px 56px; }
+  h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 500; margin: 0 0 6px; color: var(--ink-deep); }
+  .sub { color: var(--muted); margin: 0 0 22px; }
+  .banner { padding: 14px 18px; border-radius: 16px; margin-bottom: 18px; display: none; }
   .banner.show { display: block; }
-  .banner.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid rgba(245, 185, 66, 0.35); }
-  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+  .banner.warn { background: var(--warn-bg); color: var(--ink-deep); border: 1px solid #f2a918; font-weight: 600; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 22px; margin-bottom: 20px; box-shadow: rgba(20, 22, 26, 0.06) 0px 1px 4px 0px; }
   .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  label { font-weight: 600; color: var(--text); }
-  input[type=password] { flex: 1; min-width: 200px; min-height: 44px; font: inherit; padding: 8px 12px;
-         background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: 10px; }
-  input[type=password]:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 2px var(--ok-bg); }
-  button { font: inherit; font-weight: 700; min-height: 44px; padding: 8px 20px; border-radius: 999px; border: 1px solid var(--accent);
-           background: var(--accent); color: #121212; cursor: pointer; transition: background-color .15s; }
+  label { font-weight: 700; font-size: 14px; color: var(--ink-deep); }
+  input[type=password] { flex: 1; min-width: 200px; min-height: 44px; font: inherit; padding: 8px 14px;
+         background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 8px; }
+  input[type=password]:focus { border: 2px solid #1876f2; outline: none; }
+  button { font: inherit; font-size: 14px; font-weight: 700; letter-spacing: -0.14px; min-height: 44px; padding: 10px 26px; border-radius: 100px; border: 2px solid var(--accent);
+           background: var(--accent); color: #ffffff; cursor: pointer; transition: background-color .14s ease; }
   button:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
-  button.ghost { background: var(--card); color: var(--accent); }
-  button:disabled { opacity: .55; cursor: wait; }
+  button.ghost { background: transparent; color: var(--ink-deep); border-color: var(--ink-deep); }
+  button:disabled { background: #bcc0c4; border-color: #bcc0c4; color: #ffffff; cursor: wait; }
   .note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
   ol.checks { list-style: none; padding: 0; margin: 0; }
-  .check { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
-           margin-bottom: 10px; display: grid; grid-template-columns: 28px 1fr auto; gap: 4px 12px; align-items: start; }
-  .check.ok { border-color: rgba(30, 215, 96, 0.3); }
-  .check.bad { border-color: rgba(255, 123, 114, 0.35); }
+  .check { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px;
+           margin-bottom: 12px; display: grid; grid-template-columns: 28px 1fr auto; gap: 4px 12px; align-items: start; }
+  .check.ok { border-color: rgba(49, 162, 76, 0.35); }
+  .check.bad { border-color: rgba(228, 30, 63, 0.4); }
   .lamp { width: 22px; height: 22px; border-radius: 50%; margin-top: 3px; background: var(--wait); border: 3px solid var(--wait-bg); }
   .check.ok .lamp { background: var(--ok); border-color: var(--ok-bg); }
   .check.bad .lamp { background: var(--bad); border-color: var(--bad-bg); }
   .check.skip .lamp { background: var(--bg); border-color: var(--wait); }
-  .title { font-weight: 600; color: var(--text); }
-  .badge { font-size: 14px; font-weight: 600; padding: 2px 11px; border-radius: 999px; background: var(--wait-bg); color: var(--muted); white-space: nowrap; }
-  .check.ok .badge { background: var(--ok-bg); color: var(--ok); }
-  .check.bad .badge { background: var(--bad-bg); color: var(--bad); }
+  .title { font-weight: 700; color: var(--ink-deep); }
+  .badge { font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 100px; background: var(--wait-bg); color: var(--muted); white-space: nowrap; }
+  .check.ok .badge { background: var(--ok); color: #ffffff; }
+  .check.bad .badge { background: var(--bad); color: #ffffff; }
   .detail, .hint { grid-column: 2 / 4; font-size: 15px; }
   .detail { color: var(--muted); }
-  .hint { color: var(--bad); display: none; }
+  .hint { color: var(--bad); font-weight: 600; display: none; }
   .check.bad .hint { display: block; }
-  .summary { font-weight: 600; font-size: 17px; margin: 4px 0 0; color: var(--text); }
-  code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; background: var(--bg); border: 1px solid var(--line); color: #e4f9ec; padding: 1px 6px; border-radius: 5px; }
+  .summary { font-weight: 700; font-size: 16px; margin: 4px 0 0; color: var(--ink-deep); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 13.5px; background: var(--sub); border: 1px solid var(--line); color: var(--ink-deep); padding: 1px 6px; border-radius: 6px; }
 </style>
 </head>
 <body>
+<div class="promo-banner" role="note">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</div>
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="./index.html"><span class="brand-dot" aria-hidden="true"></span>ระบบร้านยาจำลอง</a>
+    <a class="brand" href="./index.html"><span class="brand-dot" aria-hidden="true">Rx</span>ระบบร้านยาจำลอง</a>
     <nav class="nav-links" aria-label="นำทาง">
       <a href="./index.html">หน้าแรก</a>
       <a href="./pos.html">หน้าขายยา</a>
       <a href="./admin.html">จัดการระบบ</a>
-      <a href="./dashboard.html">Dashboard คลังยา</a>
+      <a href="./dashboard.html">Dashboard</a>
+      <span class="nav-current" aria-current="page">สถานะระบบ</span>
     </nav>
   </div>
 </header>
