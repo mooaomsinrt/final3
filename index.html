@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#121212">
+  <meta name="theme-color" id="theme-color" content="#121212">
   <meta name="description" content="หน้าแรกศูนย์รวมระบบร้านยาจำลอง สำหรับเจ้าหน้าที่ร้านยา">
   <title>ระบบร้านยาจำลอง</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,12 +17,39 @@
       --card-hover: #222222;
       --card-active: #282828;
       --border: #2a2a2a;
+      --file-bg: #121212;
       --text: #ffffff;
       --muted: #b3b3b3;
       --accent: #1ed760;
+      --accent-ink: #1ed760;
       --accent-soft: rgba(30, 215, 96, 0.14);
+      --accent-border: rgba(30, 215, 96, 0.4);
       --warn: #f5b942;
+      --warn-ink: #ffd782;
       --warn-soft: rgba(245, 185, 66, 0.12);
+      --warn-border: rgba(245, 185, 66, 0.35);
+      --shadow: none;
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4f6f5;
+      --card: #ffffff;
+      --card-hover: #f1fbf4;
+      --card-active: #e4f6ea;
+      --border: #d9e2dc;
+      --file-bg: #eef2ef;
+      --text: #121212;
+      --muted: #525c56;
+      --accent: #1ed760;
+      --accent-ink: #0f7a38;
+      --accent-soft: rgba(30, 215, 96, 0.16);
+      --accent-border: rgba(15, 122, 56, 0.35);
+      --warn: #c78300;
+      --warn-ink: #7d5000;
+      --warn-soft: rgba(245, 185, 66, 0.2);
+      --warn-border: rgba(199, 131, 0, 0.35);
+      --shadow: 0 2px 10px rgba(18, 18, 18, 0.05);
     }
 
     *, *::before, *::after {
@@ -92,14 +119,56 @@
       font-size: 0.875rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--accent);
+      color: var(--accent-ink);
       text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 40px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: var(--shadow);
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.97);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .sys-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      min-height: 40px;
       padding: 5px 12px;
       border-radius: 999px;
       background: var(--card);
@@ -120,7 +189,7 @@
 
     .sys-pill.is-online {
       color: var(--text);
-      border-color: rgba(30, 215, 96, 0.4);
+      border-color: var(--accent-border);
       background: var(--accent-soft);
     }
 
@@ -129,8 +198,8 @@
     }
 
     .sys-pill.is-warn {
-      color: #ffd782;
-      border-color: rgba(245, 185, 66, 0.35);
+      color: var(--warn-ink);
+      border-color: var(--warn-border);
       background: var(--warn-soft);
     }
 
@@ -162,6 +231,7 @@
       color: var(--text);
       font-size: 1rem;
       font-weight: 600;
+      box-shadow: var(--shadow);
     }
 
     .menu-list {
@@ -186,6 +256,7 @@
       border: 1px solid var(--border);
       color: var(--text);
       text-decoration: none;
+      box-shadow: var(--shadow);
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
       transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
@@ -227,7 +298,7 @@
       height: 26px;
       border-radius: 999px;
       background: var(--accent-soft);
-      color: var(--accent);
+      color: var(--accent-ink);
       font-size: 0.875rem;
       font-weight: 700;
       flex: 0 0 auto;
@@ -262,7 +333,7 @@
       color: var(--muted);
       padding: 3px 8px;
       border-radius: 6px;
-      background: #121212;
+      background: var(--file-bg);
       border: 1px solid var(--border);
     }
 
@@ -273,7 +344,7 @@
       height: 36px;
       border-radius: 50%;
       background: var(--accent-soft);
-      color: var(--accent);
+      color: var(--accent-ink);
       font-size: 1.2rem;
       font-weight: 700;
       transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
@@ -324,7 +395,10 @@
           <span class="brand-dot" aria-hidden="true"></span>
           <span class="brand-kicker">Mock Pharmacy Workshop</span>
         </div>
-        <span class="sys-pill" id="sys-status" role="status">กำลังตรวจการเชื่อมต่อ…</span>
+        <div class="header-controls">
+          <span class="sys-pill" id="sys-status" role="status">กำลังตรวจการเชื่อมต่อ…</span>
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="สลับโหมดสีมืดและสว่าง">☀ โหมดสว่าง</button>
+        </div>
       </div>
       <h1>ระบบร้านยาจำลอง</h1>
       <p class="subtitle">เลือกหน้าที่ต้องการใช้งานสำหรับเจ้าหน้าที่ร้านยา</p>
@@ -444,6 +518,34 @@
       }
     }
 
+    const THEME_KEY = 'pharmacy_home_theme';
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeColorMeta = document.getElementById('theme-color');
+
+    function applyTheme(mode) {
+      const isLight = mode === 'light';
+      document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.textContent = isLight ? '🌙 โหมดมืด' : '☀ โหมดสว่าง';
+      if (themeColorMeta) themeColorMeta.setAttribute('content', isLight ? '#f4f6f5' : '#121212');
+    }
+
+    function loadSavedTheme() {
+      try {
+        const saved = localStorage.getItem(THEME_KEY);
+        return saved === 'light' ? 'light' : 'dark';
+      } catch {
+        return 'dark';
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem(THEME_KEY, next); } catch {}
+    });
+
+    applyTheme(loadSavedTheme());
     renderMenu(LINKS);
     checkSystemBadge();
   </script>
