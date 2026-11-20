@@ -2,55 +2,83 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ไฟสถานะระบบร้านยาจำลอง</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#121212">
+<title>ตรวจสถานะระบบ · ระบบร้านยาจำลอง</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5b6475; --line: #dfe3ea;
-    --ok: #16794c; --ok-bg: #e5f5ec; --bad: #b42318; --bad-bg: #fdecea;
-    --wait: #8a94a6; --wait-bg: #eef0f4; --warn: #9a5b00; --warn-bg: #fff4e0; --accent: #2f5bd3;
+    color-scheme: dark;
+    --bg: #121212; --card: #181818; --card-hover: #222222;
+    --text: #ffffff; --muted: #b3b3b3; --line: #2a2a2a; --line-strong: #3a3a3a;
+    --ok: #1ed760; --ok-bg: rgba(30, 215, 96, 0.14);
+    --bad: #ff7b72; --bad-bg: rgba(255, 123, 114, 0.14);
+    --wait: #8a8a8a; --wait-bg: #262626;
+    --warn: #ffd782; --warn-bg: rgba(245, 185, 66, 0.14);
+    --accent: #1ed760; --accent-hover: #2ee670;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
-         font: 16px/1.6 'Noto Sans Thai', system-ui, sans-serif; }
+         font: 16px/1.6 'Noto Sans Thai', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .topbar { background: rgba(18, 18, 18, 0.92); border-bottom: 1px solid var(--line); }
+  .topbar-inner { max-width: 760px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; text-decoration: none; }
+  .brand-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--ok-bg); }
+  .nav-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 600; }
+  .nav-links a:hover { color: var(--accent); text-decoration: underline; }
   main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
-  h1 { font-size: 24px; margin: 0 0 4px; }
+  h1 { font-size: clamp(1.55rem, 4vw, 2rem); margin: 0 0 6px; font-weight: 700; }
   .sub { color: var(--muted); margin: 0 0 20px; }
-  .banner { padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; display: none; }
+  .banner { padding: 12px 16px; border-radius: 12px; margin-bottom: 16px; display: none; }
   .banner.show { display: block; }
-  .banner.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #f1c27d; }
-  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  label { font-weight: 600; }
-  input[type=password] { flex: 1; min-width: 200px; font: inherit; padding: 8px 12px;
-         border: 1px solid var(--line); border-radius: 8px; }
-  button { font: inherit; font-weight: 600; padding: 8px 18px; border-radius: 8px; border: 1px solid var(--accent);
-           background: var(--accent); color: #fff; cursor: pointer; }
-  button.ghost { background: #fff; color: var(--accent); }
-  button:disabled { opacity: .5; cursor: wait; }
-  .note { color: var(--muted); font-size: 14px; margin: 8px 0 0; }
+  .banner.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid rgba(245, 185, 66, 0.35); }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  label { font-weight: 600; color: var(--text); }
+  input[type=password] { flex: 1; min-width: 200px; min-height: 44px; font: inherit; padding: 8px 12px;
+         background: var(--bg); color: var(--text); border: 1px solid var(--line-strong); border-radius: 10px; }
+  input[type=password]:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 2px var(--ok-bg); }
+  button { font: inherit; font-weight: 700; min-height: 44px; padding: 8px 20px; border-radius: 999px; border: 1px solid var(--accent);
+           background: var(--accent); color: #121212; cursor: pointer; transition: background-color .15s; }
+  button:hover:not(:disabled) { background: var(--accent-hover); border-color: var(--accent-hover); }
+  button.ghost { background: var(--card); color: var(--accent); }
+  button:disabled { opacity: .55; cursor: wait; }
+  .note { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
   ol.checks { list-style: none; padding: 0; margin: 0; }
-  .check { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+  .check { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px;
            margin-bottom: 10px; display: grid; grid-template-columns: 28px 1fr auto; gap: 4px 12px; align-items: start; }
+  .check.ok { border-color: rgba(30, 215, 96, 0.3); }
+  .check.bad { border-color: rgba(255, 123, 114, 0.35); }
   .lamp { width: 22px; height: 22px; border-radius: 50%; margin-top: 3px; background: var(--wait); border: 3px solid var(--wait-bg); }
   .check.ok .lamp { background: var(--ok); border-color: var(--ok-bg); }
   .check.bad .lamp { background: var(--bad); border-color: var(--bad-bg); }
-  .check.skip .lamp { background: #fff; border-color: var(--wait); }
-  .title { font-weight: 600; }
-  .badge { font-size: 14px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: var(--wait-bg); color: var(--muted); white-space: nowrap; }
+  .check.skip .lamp { background: var(--bg); border-color: var(--wait); }
+  .title { font-weight: 600; color: var(--text); }
+  .badge { font-size: 14px; font-weight: 600; padding: 2px 11px; border-radius: 999px; background: var(--wait-bg); color: var(--muted); white-space: nowrap; }
   .check.ok .badge { background: var(--ok-bg); color: var(--ok); }
   .check.bad .badge { background: var(--bad-bg); color: var(--bad); }
   .detail, .hint { grid-column: 2 / 4; font-size: 15px; }
   .detail { color: var(--muted); }
   .hint { color: var(--bad); display: none; }
   .check.bad .hint { display: block; }
-  .summary { font-weight: 600; font-size: 18px; margin: 4px 0 0; }
-  code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; background: var(--wait-bg); padding: 1px 5px; border-radius: 4px; }
+  .summary { font-weight: 600; font-size: 17px; margin: 4px 0 0; color: var(--text); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 14px; background: var(--bg); border: 1px solid var(--line); color: #e4f9ec; padding: 1px 6px; border-radius: 5px; }
 </style>
 </head>
 <body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./index.html"><span class="brand-dot" aria-hidden="true"></span>ระบบร้านยาจำลอง</a>
+    <nav class="nav-links" aria-label="นำทาง">
+      <a href="./index.html">หน้าแรก</a>
+      <a href="./admin.html">จัดการระบบ</a>
+      <a href="./dashboard.html">Dashboard คลังยา</a>
+    </nav>
+  </div>
+</header>
 <main>
   <h1>ไฟสถานะระบบร้านยาจำลอง</h1>
   <p class="sub">ตรวจว่า API ทั้ง 3 ไฟล์บน Vercel เชื่อมกับ Supabase ได้ครบ ทุกการตรวจ<strong>ไม่เปลี่ยนข้อมูล</strong>ในฐานข้อมูล</p>
