@@ -83,21 +83,20 @@ code { font-family: var(--mono); font-size: .88em; background: #f1f3f2; padding:
 .import-actions .load-status { margin-top: 0; }
 .import-actions .text-button { padding-block: 3px; font-size: .9rem; }
 .hero-art {
-  position: relative; min-height: 360px; min-width: 0; display: flex; align-items: end;
+  position: relative; min-height: 380px; min-width: 0; display: flex; align-items: end;
   overflow: hidden; isolation: isolate; border-radius: 22px; background: #143d34; padding: 15px;
 }
 .hero-image {
-  position: absolute; inset: 0; z-index: -2; background-color: #143d34;
-  background-image: url("./assets/pharmacy-still-life.jpg");
-  background-size: cover; background-position: center 49%; transition: transform .6s ease;
+  position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: 62% 50%; background-color: #143d34; transition: transform .6s ease;
 }
 .hero-art::before {
-  content: ""; position: absolute; inset: 25% 0 0; z-index: -1;
-  background: linear-gradient(transparent, #071e16a8); pointer-events: none;
+  content: ""; position: absolute; inset: 30% 0 0; z-index: 1;
+  background: linear-gradient(transparent, #071e16b8); pointer-events: none;
 }
 .hero-art:hover .hero-image { transform: scale(1.035); }
 .hero-console {
-  max-width: 100%; min-width: 0; border: 1px solid #d6f1e449; border-radius: 13px; padding: 11px 13px;
+  position: relative; z-index: 2; max-width: 100%; min-width: 0; border: 1px solid #d6f1e449; border-radius: 13px; padding: 11px 13px;
   color: #fff; background: #09271feb; backdrop-filter: blur(9px);
 }
 .console-status { color: #e1f7ef; margin-bottom: 6px; }
