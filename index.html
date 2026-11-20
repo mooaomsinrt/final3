@@ -2,145 +2,450 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="แดชบอร์ดบัญชียา สต็อกรายล็อต และประวัติการจ่ายยา เชื่อมต่อฐานข้อมูล Supabase">
-  <title>บัญชียาและสต็อก · Supabase</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script src="./app.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#121212">
+  <meta name="description" content="หน้าแรกศูนย์รวมระบบร้านยาจำลอง สำหรับเจ้าหน้าที่ร้านยา">
+  <title>ระบบร้านยาจำลอง</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #121212;
+      --card: #181818;
+      --card-hover: #222222;
+      --card-active: #282828;
+      --border: #2a2a2a;
+      --text: #ffffff;
+      --muted: #b3b3b3;
+      --accent: #1ed760;
+      --accent-soft: rgba(30, 215, 96, 0.14);
+      --warn: #f5b942;
+      --warn-soft: rgba(245, 185, 66, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: max(24px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-soft);
+      flex: 0 0 auto;
+    }
+
+    .brand-kicker {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .sys-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.3;
+    }
+
+    .sys-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex: 0 0 auto;
+    }
+
+    .sys-pill.is-online {
+      color: var(--text);
+      border-color: rgba(30, 215, 96, 0.4);
+      background: var(--accent-soft);
+    }
+
+    .sys-pill.is-online::before {
+      background: var(--accent);
+    }
+
+    .sys-pill.is-warn {
+      color: #ffd782;
+      border-color: rgba(245, 185, 66, 0.35);
+      background: var(--warn-soft);
+    }
+
+    .sys-pill.is-warn::before {
+      background: var(--warn);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.75rem, 4.5vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .notice {
+      margin: 0;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .menu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      min-height: 84px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s ease;
+    }
+
+    .menu-link:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+    }
+
+    .menu-link:active {
+      background: var(--card-active);
+      transform: scale(0.99);
+    }
+
+    .menu-link:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .menu-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .menu-index {
+      display: inline-grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .menu-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .menu-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.45;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .menu-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .menu-file {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #121212;
+      border: 1px solid var(--border);
+    }
+
+    .menu-arrow {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
+    }
+
+    .menu-link:hover .menu-arrow {
+      background: var(--accent);
+      color: #121212;
+      transform: translateX(2px);
+    }
+
+    .footer {
+      margin-top: auto;
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .menu-link {
+        min-height: 78px;
+        padding: 16px;
+      }
+
+      .menu-file {
+        display: none;
+      }
+
+      .menu-desc {
+        white-space: normal;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .menu-link,
+      .menu-arrow {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="shell topbar-inner">
-      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>คลังข้อมูลยา</a>
-      <nav id="navigation" aria-label="ทางลัด" hidden>
-        <a href="#records">รายการ</a><a href="#charts">กราฟ</a><a href="#checks">ตรวจข้อมูล</a>
-      </nav>
-      <div class="topbar-meta">
-        <a class="status-link" href="./status.html">ตรวจสถานะระบบ</a>
-        <span class="dataset-label" id="dataset-label">กำลังเชื่อมต่อ…</span>
+  <main>
+    <header class="header">
+      <div class="brand-row">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-kicker">Mock Pharmacy Workshop</span>
+        </div>
+        <span class="sys-pill" id="sys-status" role="status">กำลังตรวจการเชื่อมต่อ…</span>
       </div>
-    </div>
-  </header>
-  <main class="shell" id="top">
-    <header class="hero">
-      <div class="hero-copy">
-        <div class="mono kicker">SUPABASE / LIVE DATABASE</div>
-        <h1>บัญชียาและสต็อก</h1>
-        <p class="hero-description">สำรวจทะเบียนยา ยอดคงเหลือรายล็อต และประวัติการจ่าย แบบเรียลไทม์จากฐานข้อมูล Supabase ผ่าน <code>/api/data</code></p>
-        <div class="db-panel" id="db-panel">
-          <div class="db-panel-copy">
-            <span class="db-dot" id="db-dot" aria-hidden="true"></span>
-            <div>
-              <strong id="db-title">เชื่อมต่อฐานข้อมูล Supabase</strong>
-              <p id="db-subtitle">อ่านข้อมูลจาก drugs · stock · dispense_log · v_drug_catalog</p>
-            </div>
-          </div>
-          <button type="button" class="button primary" id="reload-supabase">รีเฟรชข้อมูล</button>
-        </div>
-        <div class="drop-zone" id="drop-zone">
-          <div class="drop-copy">
-            <span class="drop-mark mono" aria-hidden="true">{ }</span>
-            <div><strong id="drop-title">หรือลากไฟล์ JSON มาวาง</strong><p>ใช้ตรวจสอบไฟล์ออฟไลน์ (ทะเบียนยา · สต็อก · ประวัติการจ่าย)</p></div>
-          </div>
-          <label class="button file-button">
-            <input type="file" id="file-input" accept=".json,application/json" multiple>
-            <span>เลือกไฟล์ JSON</span>
-          </label>
-        </div>
-        <div class="import-actions">
-          <p class="load-status" id="load-status" role="status"></p>
-          <a class="text-button" href="./status.html">ดูไฟสถานะ API</a>
-        </div>
-        <p class="load-error" id="load-error" role="alert" hidden></p>
-        <ul class="sources" id="sources" aria-label="ชุดข้อมูลที่โหลด" hidden></ul>
-      </div>
-      <div class="hero-art">
-        <img class="hero-image" src="./assets/pharmacy-still-life.jpg" alt="ภาพประกอบคลังยา ขวดยาสีชาและเม็ดยา" width="1536" height="1024" decoding="async" fetchpriority="high">
-        <div class="hero-console">
-          <p class="console-status mono" id="source-status">กำลังเชื่อมต่อ Supabase…</p>
-          <div class="console-actions" id="source-shortcuts" aria-label="เปิดชุดข้อมูลที่โหลดแล้ว">
-            <button type="button" data-source="catalog" disabled>ทะเบียนยา</button>
-            <button type="button" data-source="stock" disabled>สต็อก</button>
-            <button type="button" data-source="events" disabled>ประวัติการจ่าย</button>
-          </div>
-        </div>
-      </div>
+      <h1>ระบบร้านยาจำลอง</h1>
+      <p class="subtitle">เลือกหน้าที่ต้องการใช้งานสำหรับเจ้าหน้าที่ร้านยา</p>
     </header>
 
-    <div id="dashboard" hidden>
-      <section class="overview" aria-labelledby="overview-title">
-        <div class="overview-copy">
-          <span class="mono">DATA OVERVIEW</span>
-          <h2 id="overview-title">ภาพรวมข้อมูลยา</h2>
-          <p id="snapshot"></p>
-          <a id="review-shortcut" class="review-shortcut" href="#checks" hidden></a>
-        </div>
-        <dl class="metrics">
-          <div><dt>รายการยา (SKU)</dt><dd id="metric-skus"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
-          <div><dt>หมวดหมู่</dt><dd id="metric-categories"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
-          <div><dt>ล็อตในคลัง</dt><dd id="metric-lots"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
-          <div><dt>จ่าย / คืน / ยกเลิก</dt><dd id="metric-events"><span aria-hidden="true">—</span><span class="sr-only">—</span></dd></div>
-        </dl>
-      </section>
+    <p class="notice" role="note">ข้อมูลทั้งหมดเป็นข้อมูลจำลอง ห้ามใส่ชื่อผู้ป่วยจริง</p>
 
-      <div class="workspace">
-        <section class="records" id="records" aria-labelledby="records-title">
-          <div class="section-lead">
-            <h2 id="records-title">สำรวจรายการ</h2>
-            <div class="view-choices" id="view-choices" aria-label="เลือกชุดรายการ">
-              <button type="button" class="pill" data-view="catalog" aria-pressed="true">ทะเบียนยา</button>
-              <button type="button" class="pill" data-view="stock" aria-pressed="false">สต็อกรายล็อต</button>
-              <button type="button" class="pill" data-view="events" aria-pressed="false">ประวัติการจ่าย</button>
-            </div>
-            <p class="view-note" id="view-note"></p>
-          </div>
-          <form class="filters" id="filters" role="search">
-            <label>ค้นหา <input id="search" type="search" placeholder="ชื่อยา, SKU, ATC, ล็อต, ผู้ป่วย, เภสัชกร"></label>
-            <label>หมวดหมู่ <select id="category"><option value="">ทุกหมวด</option></select></label>
-            <label id="status-field">สถานะ <select id="status"><option value="">ทุกสถานะ</option></select></label>
-            <button class="text-button" type="reset">ล้างตัวกรอง</button>
-          </form>
-          <p class="result-count" id="result-count" role="status" tabindex="-1"></p>
-          <div class="table-region" id="table-region" role="region" tabindex="0" aria-label="ตารางรายการยา">
-            <table><thead id="table-head"></thead><tbody id="table-body"></tbody></table>
-          </div>
-          <ul id="mobile-records" class="mobile-records" aria-label="รายการยา" hidden></ul>
-          <p class="empty" id="empty-records" hidden></p>
-          <div class="pagination" id="pagination">
-            <button type="button" id="previous" class="pill">ก่อนหน้า</button>
-            <span id="page-number" class="mono"></span>
-            <button type="button" id="next" class="pill">ถัดไป</button>
-          </div>
-        </section>
+    <nav aria-label="เมนูหลักระบบร้านยาจำลอง">
+      <ul class="menu-list" id="menu-list"></ul>
+    </nav>
 
-        <aside class="analytics" id="charts" aria-labelledby="share-title">
-          <section class="share-card">
-            <div class="chart-heading">
-              <h2 id="share-title">สัดส่วนตามหมวด</h2>
-              <button type="button" class="text-button replay" id="replay">เล่นซ้ำ</button>
-            </div>
-            <p id="chart-note">เลือกหมวดจากวงแหวนหรือกราฟแท่งเพื่อกรองรายการ</p>
-            <div class="ring-wrap" aria-hidden="true">
-              <div class="ring" id="ring"><div class="ring-slices"></div>
-                <div class="ring-center"><strong id="ring-number"></strong><span id="ring-unit"></span></div>
-              </div>
-              <p id="ring-caption"></p>
-            </div>
-            <h3 id="bars-title">จำนวน SKU ตามหมวด</h3>
-            <div class="bars" id="bars" role="group" aria-labelledby="bars-title"></div>
-          </section>
-        </aside>
-      </div>
-
-      <section class="checks" id="checks" aria-labelledby="checks-title">
-        <div>
-          <h2 id="checks-title">รายการที่ควรตรวจสอบ</h2>
-          <p>คำนวณตามกฎฐานข้อมูล Supabase (วันอ้างอิง <code>as_of</code>, จุดสั่งซื้อซ้ำ, ใกล้หมดอายุ 90 วัน, ล็อตกักกัน และประวัติการจ่าย)</p>
-        </div>
-        <div id="check-list" class="check-list"></div>
-      </section>
-    </div>
-    <noscript><p>กรุณาเปิด JavaScript เพื่อเชื่อมต่อข้อมูลจาก Supabase</p></noscript>
+    <footer class="footer">
+      <p id="env-note">ใช้งานผ่านเว็บ Vercel เพื่อเชื่อมต่อฐานข้อมูล Supabase</p>
+    </footer>
   </main>
+
+  <script>
+    // เพิ่มหรือลบเมนูได้ด้วยการแก้หนึ่งบรรทัดในอาร์เรย์นี้
+    const LINKS = [
+      { href: 'pos.html',       title: 'หน้าขายยา',            desc: 'เลือกยา กรอกจำนวน บันทึกการจ่ายยา' },
+      { href: 'admin.html',     title: 'จัดการระบบ (ผู้ดูแล)',  desc: 'บัญชียา คลังรายล็อต รายการจ่าย ต้องใช้รหัสผู้ดูแล' },
+      { href: 'dashboard.html', title: 'Dashboard คลังยา',     desc: 'ภาพรวมคลัง ล็อตใกล้หมดอายุ ยาต่ำกว่าจุดสั่งซื้อ' },
+      { href: 'status.html',    title: 'ตรวจสถานะระบบ',         desc: 'ตรวจว่าการเชื่อมต่อแต่ละส่วนทำงานปกติ' },
+    ];
+
+    const menuList = document.getElementById('menu-list');
+
+    function renderMenu(items) {
+      const frag = document.createDocumentFragment();
+      items.forEach((item, index) => {
+        const li = document.createElement('li');
+
+        const link = document.createElement('a');
+        link.className = 'menu-link';
+        link.setAttribute('href', item.href);
+
+        const copy = document.createElement('div');
+        copy.className = 'menu-copy';
+
+        const titleRow = document.createElement('div');
+        titleRow.className = 'menu-title-row';
+
+        const num = document.createElement('span');
+        num.className = 'menu-index';
+        num.setAttribute('aria-hidden', 'true');
+        num.textContent = String(index + 1);
+
+        const title = document.createElement('span');
+        title.className = 'menu-title';
+        title.textContent = item.title;
+
+        const desc = document.createElement('span');
+        desc.className = 'menu-desc';
+        desc.textContent = item.desc;
+
+        titleRow.append(num, title);
+        copy.append(titleRow, desc);
+
+        const action = document.createElement('div');
+        action.className = 'menu-action';
+        action.setAttribute('aria-hidden', 'true');
+
+        const fileTag = document.createElement('span');
+        fileTag.className = 'menu-file';
+        fileTag.textContent = item.href;
+
+        const arrow = document.createElement('span');
+        arrow.className = 'menu-arrow';
+        arrow.textContent = '→';
+
+        action.append(fileTag, arrow);
+        link.append(copy, action);
+        li.append(link);
+        frag.append(li);
+      });
+      menuList.replaceChildren(frag);
+    }
+
+    async function checkSystemBadge() {
+      const pill = document.getElementById('sys-status');
+      const note = document.getElementById('env-note');
+      const host = location.hostname;
+
+      if (location.protocol === 'file:') {
+        pill.className = 'sys-pill is-warn';
+        pill.textContent = 'เปิดจากไฟล์ในเครื่อง (ออฟไลน์)';
+        note.textContent = 'เปิดผ่านลิงก์ vercel.app เพื่อให้ API และฐานข้อมูล Supabase ทำงานครบทุกหน้า';
+        return;
+      }
+
+      if (host.endsWith('github.io')) {
+        pill.className = 'sys-pill is-warn';
+        pill.textContent = 'GitHub Pages ไม่มี API';
+        note.textContent = 'กรุณาเปิดผ่านลิงก์ vercel.app เพื่อให้เชื่อม Supabase ได้';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/data', { cache: 'no-store' });
+        const text = await res.text();
+        let data = null;
+        try { data = JSON.parse(text); } catch {}
+        if (res.ok && data && data.drugs && data.stock && data.dispense_log) {
+          const asOf = (data.drugs.meta && data.drugs.meta.as_of) || '-';
+          pill.className = 'sys-pill is-online';
+          pill.textContent = 'เชื่อมต่อ Supabase แล้ว · ณ ' + asOf;
+          note.textContent = 'พร้อมใช้งาน · ยา ' + data.drugs.items.length + ' รายการ · คลัง ' + data.stock.items.length + ' ล็อต';
+        } else {
+          pill.className = 'sys-pill is-warn';
+          pill.textContent = 'ยังไม่ได้เชื่อมฐานข้อมูล';
+          note.textContent = 'กดปุ่ม "ตรวจสถานะระบบ" เพื่อดูสาเหตุและวิธีแก้ไข';
+        }
+      } catch {
+        pill.className = 'sys-pill is-warn';
+        pill.textContent = 'ตรวจสอบการเชื่อมต่อไม่ได้';
+        note.textContent = 'กดปุ่ม "ตรวจสถานะระบบ" เพื่อดูรายละเอียด';
+      }
+    }
+
+    renderMenu(LINKS);
+    checkSystemBadge();
+  </script>
 </body>
 </html>
